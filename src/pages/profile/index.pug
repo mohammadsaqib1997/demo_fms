@@ -1,0 +1,187 @@
+#container.wrap-content.container
+    section#page-title
+        .row
+            .col-xs-12.col-sm-12.col-md-8.col-lg-8
+                h1.mainTitle User Control
+                span.mainDescription Profile
+            ol.breadcrumb
+                li
+                    span User Control
+                li.active
+                    span Profile
+    .container-fluid.container-fullw.bg-offwhite.profile_page
+        .panel.panel-white.no-radius
+            .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                h4.panel-title.pull-left.padding-15 User Profile
+            .panel-body
+                .row(v-if='dataLoad2')
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                        div.text-center
+                            i.fa.fa-refresh.fa-spin.fa-fw.fa-3x
+                .row(v-else)
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12(v-if='errMain !== "" || sucMain !== ""')
+                        p.alert.alert-danger(v-if="errMain !== ''") {{ errMain }}
+                        p.alert.alert-success(v-if="sucMain !== ''") {{ sucMain }}
+                .row
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                        h3.p_subheading {{ first_name+" "+last_name }}
+                    .col-sm-5.col-xs-12.col-sm-12.col-md-3.col-lg-3
+                        .user-left
+                                div.text-center(v-if='loadImg')
+                                    i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                .fileinput.fileinput-new(v-else data-provides='fileinput')
+                                    .user-image
+                                        .fileinput-new.thumbnail
+                                            img(v-bind:src='profile_img_src', alt='Profile Image')
+                                        .user-image-buttons(v-if="!fileLoader")
+                                            span.btn.btn-azure.btn-file.btn-sm
+                                                span.fileinput-exists
+                                                    i.fa.fa-pencil
+                                                input(type='file' id="profile_img")
+                                template(v-if="profile_img !== null && !fileLoader")
+                                    button.btn.btn-azure.btn-file(v-on:click.prevent="upload_img") Upload
+                                    button.btn.btn-azure.btn-file.mar-lf-10(v-on:click.prevent="reset_file_input") Cancel
+                                button.btn.btn-azure.btn-file(v-if="fileLoader" disabled="disabled")
+                                    i.fa.fa-refresh.fa-spin.fa-fw
+                    .col-sm-7.col-md-9
+                        table.table.table-condensed.profile-table
+                            tbody
+                                tr
+                                    td.col-xs-12.col-sm-12.col-md-3.col-lg-3(style="font-size: 16px;") First Name:
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-if='!edit["first_name"]' style="font-size: 16px;font-weight:600;") {{ first_name }}
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-else style="font-size: 16px;font-weight:600;")
+                                        input.form-control(v-model="edit_val.first_name")
+                                        p.text-danger.text-right(v-if='validation.hasError("edit_val.first_name")') {{ validation.firstError('edit_val.first_name') }}
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-if='!edit["first_name"]' style="font-size: 16px;font-weight:600;")
+                                        a.show-tab(v-on:click.prevent="simEdit('first_name')")
+                                            i.fa.fa-pencil.edit-user-info
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-else)
+                                        div(v-if="inProcess")
+                                            i.fa.fa-refresh.fa-spin.fa-fw
+                                        template(v-else)
+                                            a.show-tab(v-on:click.prevent="submit('first_name')")
+                                                i.fa.fa-check
+                                            a.show-tab(v-on:click.prevent="cancel('first_name')")
+                                                i.fa.fa-times
+                                tr
+                                    td.col-xs-12.col-sm-12.col-md-3.col-lg-3(style="font-size: 16px;") Last Name:
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-if='!edit["last_name"]' style="font-size: 16px;font-weight:600;") {{ last_name }}
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-else style="font-size: 16px;font-weight:600;")
+                                        input.form-control(v-model="edit_val.last_name")
+                                        p.text-danger.text-right(v-if='validation.hasError("edit_val.last_name")') {{ validation.firstError('edit_val.last_name') }}
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-if='!edit["last_name"]')
+                                        a.show-tab(v-on:click.prevent="simEdit('last_name')")
+                                            i.fa.fa-pencil.edit-user-info
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-else)
+                                        div(v-if="inProcess")
+                                            i.fa.fa-refresh.fa-spin.fa-fw
+                                        template(v-else)
+                                            a.show-tab(v-on:click.prevent="submit('last_name')")
+                                                i.fa.fa-check
+                                            a.show-tab(v-on:click.prevent="cancel('last_name')")
+                                                i.fa.fa-times
+                                tr
+                                    td.col-xs-12.col-sm-12.col-md-3.col-lg-3(style="font-size: 16px;") Email:
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(style="font-size: 16px;font-weight:600") {{ email }}
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right
+                                tr
+                                    td.col-xs-12.col-sm-12.col-md-3.col-lg-3(style="font-size: 16px;") Phone/Mobile:
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-if='!edit["mob_num"]' style="font-size: 16px;font-weight:600") {{ mob_num }}
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-else style="font-size: 16px;font-weight:600")
+                                        input.form-control(v-model="edit_val.mob_num")
+                                        p.text-danger.text-right(v-if='validation.hasError("edit_val.mob_num")') {{ validation.firstError('edit_val.mob_num') }}
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-if='!edit["mob_num"]')
+                                        a.show-tab(v-on:click.prevent="simEdit('mob_num')")
+                                            i.fa.fa-pencil.edit-user-info
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-else)
+                                        div(v-if="inProcess")
+                                            i.fa.fa-refresh.fa-spin.fa-fw
+                                        template(v-else)
+                                            a.show-tab(v-on:click.prevent="submit('mob_num')")
+                                                i.fa.fa-check
+                                            a.show-tab(v-on:click.prevent="cancel('mob_num')")
+                                                i.fa.fa-times
+                                tr
+                                    td.col-xs-12.col-sm-12.col-md-3.col-lg-3(style="font-size: 16px;") Gender
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-if='!edit["gender"]' style="font-size: 16px;font-weight:600") {{ gender }}
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-else style="font-size: 16px;font-weight:600")
+                                        .clip-radio.radio-primary
+                                            input#us-female(type='radio', value='Female', v-model='edit_val.gender')
+                                            label(for='us-female')
+                                                | Female
+                                            input#us-male(type='radio', value='Male', v-model='edit_val.gender')
+                                            label(for='us-male')
+                                                | Male
+                                            p.text-danger.text-right(v-if='validation.hasError("edit_val.gender")') {{ validation.firstError('edit_val.gender') }}
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-if='!edit["gender"]' style="font-size: 16px;font-weight:600")
+                                        a.show-tab(v-on:click.prevent="simEdit('gender')")
+                                            i.fa.fa-pencil.edit-user-info
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-else style="font-size: 16px;font-weight:600")
+                                        div(v-if="inProcess")
+                                            i.fa.fa-refresh.fa-spin.fa-fw
+                                        template(v-else)
+                                            a.show-tab(v-on:click.prevent="submit('gender')")
+                                                i.fa.fa-check
+                                            a.show-tab(v-on:click.prevent="cancel('gender')")
+                                                i.fa.fa-times
+                                tr
+                                    td.col-xs-12.col-sm-12.col-md-3.col-lg-3(style="font-size: 16px;") Project
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-if='!dataLoad1' style="font-size: 16px;font-weight:600") {{ getPro() }}
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-else style="font-size: 16px;font-weight:600;")
+                                        div
+                                            i.fa.fa-refresh.fa-spin.fa-fw
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right
+                                tr
+                                    td.col-xs-12.col-sm-12.col-md-3.col-lg-3(style="font-size: 16px;") City
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-if='!edit["city"]' style="font-size: 16px;font-weight:600") {{ city }}
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-else style="font-size: 16px;font-weight:600")
+                                        com_cities(ref='sel_city' v-bind:label_con="false")
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-if='!edit["city"]')
+                                        a.show-tab(v-on:click.prevent="simEdit('city')")
+                                            i.fa.fa-pencil.edit-user-info
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-else)
+                                        div(v-if="inProcess")
+                                            i.fa.fa-refresh.fa-spin.fa-fw
+                                        template(v-else)
+                                            a.show-tab(v-on:click.prevent="submit('city')")
+                                                i.fa.fa-check
+                                            a.show-tab(v-on:click.prevent="cancel('city')")
+                                                i.fa.fa-times
+                                tr
+                                    td.col-xs-12.col-sm-12.col-md-3.col-lg-3(style="font-size: 16px;") Zipcode
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-if='!edit["zipcode"]' style="font-size: 16px;font-weight:600") {{ zipcode }}
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-else style="font-size: 16px;font-weight:600")
+                                        input.form-control(v-model="edit_val.zipcode")
+                                        p.text-danger.text-right(v-if='validation.hasError("edit_val.zipcode")') {{ validation.firstError('edit_val.zipcode') }}
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-if='!edit["zipcode"]')
+                                        a.show-tab(v-on:click.prevent="simEdit('zipcode')")
+                                            i.fa.fa-pencil.edit-user-info
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-else)
+                                        div(v-if="inProcess")
+                                            i.fa.fa-refresh.fa-spin.fa-fw
+                                        template(v-else)
+                                            a.show-tab(v-on:click.prevent="submit('zipcode')")
+                                                i.fa.fa-check
+                                            a.show-tab(v-on:click.prevent="cancel('zipcode')")
+                                                i.fa.fa-times
+                                tr
+                                    td.col-xs-12.col-sm-12.col-md-3.col-lg-3(style="font-size: 16px;") Change Password
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-if='!edit["password"]' style="font-size: 16px;font-weight:600") ********
+                                    td.col-xs-12.col-sm-12.col-md-7.col-lg-7(v-else style="font-size: 16px;font-weight:600")
+                                        .form-group
+                                            input.form-control(type="password" v-model="edit_val.password" placeholder="Enter New Password")
+                                            p.text-danger.text-right(v-if='validation.hasError("edit_val.password")') {{ validation.firstError('edit_val.password') }}
+                                        .form-group
+                                            input.form-control(type="password" v-model="edit_val.re_password" placeholder="Re-Type Password")
+                                            p.text-danger.text-right(v-if='validation.hasError("edit_val.re_password")') {{ validation.firstError('edit_val.re_password') }}
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-if='!edit["password"]')
+                                        a.show-tab(v-on:click.prevent="simEdit('password')")
+                                            i.fa.fa-pencil.edit-user-info
+                                    td.col-xs-12.col-sm-12.col-md-1.col-lg-1.text-right(v-else)
+                                        div(v-if="inProcess")
+                                            i.fa.fa-refresh.fa-spin.fa-fw
+                                        template(v-else)
+                                            a.show-tab(v-on:click.prevent="submit('password')")
+                                                i.fa.fa-check
+                                            a.show-tab(v-on:click.prevent="cancel('password')")
+                                                i.fa.fa-times

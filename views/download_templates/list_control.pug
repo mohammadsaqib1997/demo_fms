@@ -1,0 +1,18 @@
+extends partials/header_table
+block content
+    table(style='width:100%;font-size: 14px;color: #545454 !important;font-weight: 400;border-spacing: 0;border-collapse: collapse;border: 0px;background: #ffffff;min-height: .01%;overflow-x: auto;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;', border='1', cellpadding='5')
+        tbody
+            tr(style='border: 0px;font-size: 14px;font-weight: 400;font-family: Helvetica, sans-serif;text-align: left;')
+                th(style='width:25%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Account Code
+                th(style='width:50%;text-align:center;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Account Description
+                th(style='width:25%;text-align:right;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Reference Code
+            tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;border-color:#e2e2e4;')
+                td(style='vertical-align: middle;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;padding: 0px;line-height: 1.42857143;border: 0px solid;' colspan='3')
+                    table(cellpadding='5' style='width:100%;border-spacing: 0;border-bottom: 0px solid;border-collapse: collapse;')
+                        - var i = 0;
+                        - var count = Object.keys(fetchData).length;
+                        each item, id in fetchData
+                            - i += 1;
+                            tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;'+(((i%2) === 0) ? 'background-color: #f9f9f9;':'')+((count !== i) ? 'border-bottom: 1px solid #e2e2e4;':''))
+                                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:40px;') #{id}
+                                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;') #{item.name}

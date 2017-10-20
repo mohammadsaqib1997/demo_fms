@@ -1,0 +1,112 @@
+#calculator.modal.fade.modal-aside.center(tabindex='-1', role='dialog', aria-labelledby='All Calculator', aria-hidden='true')
+    .modal-dialog.modal-dialog.modal-lg
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4#myModalLabel.modal-title Calculator
+            .modal-body
+                .panel.panel-white
+                    .panel-body
+                        ul.nav
+                            li.col-md-6.padding-none.active
+                                a(href='#simple', data-toggle='tab') Simple Calculator
+                            li.col-md-6.padding-none
+                                a(href='#compound', data-toggle='tab') Compound Calculator
+                        .tab-content
+                            #simple.tab-pane.fade.in.active
+                                .row
+                                    .col-md-12
+                                        p.result {{ simple_res }}
+                                        .calculator-section
+                                            .row
+                                                .col-md-8.padding-left-none.pull-right
+                                                    form.row.margin-none.save-section(v-on:submit.prevent='saveSimpleResult')
+                                                        .col-md-10
+                                                            input.form-control.labelsave(type='text' v-model='saveSimCalName' placeholder="Enter Current Calculation Label")
+                                                        .col-md-2.padding-none
+                                                            button.btn.btn-red.btn-md.full-width.pull-right(v-if='!saveSimCalProcess' type='submit' style="text-transform: uppercase;font-weight: 600;border: none;padding: 20px 10px;") Submit
+                                                            button.btn.btn-red.btn-md.full-width.pull-right(v-else type='button' style="text-transform: uppercase;font-weight: 600;border: none;padding: 20px 10px;" disabled='disabled')
+                                                                i.fa.fa-refresh.fa-spin
+                                                        .col-md-12.padding-none
+                                                            p.alert.alert-danger(v-if='validation.hasError("saveSimCalName")') {{ validation.firstError('saveSimCalName') }}
+                                                            p.alert.alert-danger(v-if='saveSimCalErr !== ""') {{ saveSimCalErr }}
+                                                            p.alert.alert-success(v-if='saveSimCalMsg !== ""') {{ saveSimCalMsg }}
+                                            #calculatortab1
+                                                .recent-calcu
+                                                    .row
+                                                        .col-md-6
+                                                            simpleIntCal(v-on:calculate="showSimpleResult")
+                                                        .col-md-6
+                                                            h4.heading Recent Calculations
+                                                            .recent-calculations
+                                                                template(v-if='load1')
+                                                                    .row.margin-none
+                                                                        .col-md-12.text-center
+                                                                            i.fa.fa-refresh.fa-spin.fa-3x
+                                                                template(v-else)
+                                                                    template(v-if='Object.keys(simCalData).length > 0')
+                                                                        .row.margin-none(v-for='(item, key, ind) in simCalData')
+                                                                            .col-md-6.padding-none
+                                                                                p.text-left {{ item.label }}
+                                                                            .col-md-3.padding-none
+                                                                                p.text-right.text-bold {{ item.result }}
+                                                                            .col-md-3
+                                                                                a(href="#", data-toggle="modal" data-target="#calculatorview" v-on:click='send_key(key)' style="margin-right:5px;") View
+                                                                                a(v-on:click.prevent='deleteCalItem(key)') Delete
+                                                                    .row.margin-none(v-else)
+                                                                        .col-md-6.padding-none
+                                                                            h5.text-left No Data Found!
+                            #compound.tab-pane.fade.in
+                                .row
+                                    .col-md-12
+                                        .row
+                                            .col-md-6
+                                                p Future Value
+                                                p.result {{ comp_fv_res }}
+                                            .col-md-6
+                                                p Interest Earned
+                                                p.result {{ comp_iv_res }}
+                                        .calculator-section
+                                            .row
+                                                .col-md-8.pull-right.padding-left-none
+                                                    form.row.margin-none.save-section(v-on:submit.prevent='saveCompoundResult')
+                                                        .col-md-10
+                                                            input.form-control.labelsave(type='text' v-model='saveComCalName' placeholder="Enter Current Calculation Label")
+                                                        .col-md-2.padding-none
+                                                            button.btn.btn-red.btn-md.full-width.pull-right(v-if='!saveComCalProcess' type='submit' style="text-transform: uppercase;font-weight: 600;border: none;padding: 20px 10px;") Submit
+                                                            button.btn.btn-red.btn-md.full-width.pull-right(v-else type='button' style="text-transform: uppercase;font-weight: 600;border: none;padding: 20px 10px;" disabled='disabled')
+                                                                i.fa.fa-refresh.fa-spin
+                                                        .col-md-12.padding-none
+                                                            p.alert.alert-danger(v-if='validation.hasError("saveComCalName")') {{ validation.firstError('saveComCalName') }}
+                                                            p.alert.alert-danger(v-if='saveComCalErr !== ""') {{ saveComCalErr }}
+                                                            p.alert.alert-success(v-if='saveComCalMsg !== ""') {{ saveComCalMsg }}
+                                            #calculatortab2
+                                                .recent-calcu
+                                                    .row
+                                                        .col-md-6
+                                                            compoundIntCal(v-on:calculate="showCompoundResult")
+                                                        .col-md-6
+                                                            h4.heading Recent Calculations
+                                                            .recent-calculations
+                                                                template(v-if='load2')
+                                                                    .row.margin-none
+                                                                        .col-md-12.text-center
+                                                                            i.fa.fa-refresh.fa-spin.fa-3x
+                                                                template(v-else)
+                                                                    template(v-if='Object.keys(comCalData).length > 0')
+                                                                        .row.margin-none(v-for='(item, key, ind) in comCalData')
+                                                                            .col-md-5.padding-none
+                                                                                p.text-left {{ item.label }}
+                                                                            .col-md-7.padding-none
+                                                                                    .col-md-6.padding-none
+                                                                                        p.text-right.text-bold Future Value:
+                                                                                        p.text-right {{ item.result.fv }}
+                                                                                    .col-md-6.padding-none
+                                                                                        p.text-right.text-bold Interest Earned:
+                                                                                        p.text-right {{ item.result.totInt }}
+                                                                                        a(href="#", class="pull-right" data-toggle="modal" data-target="#calculatorview", v-on:click='send_key(key)' style="margin-bottom: 10px;") View
+                                                                                        a(v-on:click.prevent='deleteCalItem(key)' class="pull-right", style="margin-bottom: 10px;margin-right:10px;") Delete
+                                                                    .row.margin-none(v-else)
+                                                                        .col-md-6.padding-none
+                                                                            h5.text-left No Data Found!

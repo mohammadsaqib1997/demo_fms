@@ -1,0 +1,44 @@
+#add_project.modal.fade.modal-aside.horizontal.right.edit-project(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+    .modal-dialog.modal-dialog.modal-sm
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Add Project
+            .modal-body
+                .text-center(v-if='dataLoad')
+                    i.fa.fa-refresh.fa-spin.fa-1x.fa-fw
+                form(v-if="!dataLoad" v-on:submit.prevent='addProject')
+                    .form-group
+                        p.alert.alert-danger(v-if="errMain !== ''") {{ errMain }}
+                        p.alert.alert-success(v-if="sucMain !== ''") {{ sucMain }}
+                        .row.margin-bottom-10
+                            .col-md-12
+                                label Project Name
+                                input.form-control(type='text', placeholder='Project Name', v-model='name')
+                                p.text-danger.text-right(v-if='validation.hasError("name")') {{ validation.firstError('name') }}
+                                .text-right(v-if='validation.isValidating("name")')
+                                    i.fa.fa-spinner.fa-spin
+                        .row.margin-bottom-10
+                            .col-md-12
+                                label Types
+                                .text-center(v-if='dataLoad1')
+                                    i.fa.fa-refresh.fa-spin.fa-1x.fa-fw
+                                select.form-control(v-else='v-else', v-model='type')
+                                    option(value='') Select Types
+                                    option(v-for='(row, key, ind) in typesData', v-bind:value='key') {{ row.name }}
+                                p.text-danger.text-right(v-if='validation.hasError("type")') {{ validation.firstError('type') }}
+                        .row.margin-bottom-10
+                            .col-md-12
+                                label Project Address
+                                input.form-control(type='text', placeholder='Address', v-model='address')
+                                p.text-danger.text-right(v-if='validation.hasError("address")') {{ validation.firstError('address') }}
+                        .row.margin-bottom-10
+                            .col-md-12
+                                label Project Contact Number
+                                input.form-control(type='text', placeholder='XXX-XXXXXXX', v-model='contactNo')
+                                p.text-danger.text-right(v-if='validation.hasError("contactNo")') {{ validation.firstError('contactNo') }}
+                    button.btn.btn-primary(type='submit', v-if='!inProcess') {{ (sel_project && sel_project !== "") ? "Update":"Save" }}
+                    button.btn.btn-primary(type='button', disabled='disabled', v-if='inProcess')
+                        i.fa.fa-refresh.fa-spin.fa-fw
+                    button.btn.btn-primary.btn-o.pull-right(type='button', data-dismiss='modal') Cancel

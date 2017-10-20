@@ -1,0 +1,34 @@
+#sidebar.sidebar.app-aside
+    .sidebar-container
+        nav
+            .navbar-title
+                span Main Navigation
+            ul.main-navigation-menu
+                li(v-for="row in sidebarData" v-if="checkAdmin(row)" v-bind:class="checkActiveRoute(row)")
+                    template(v-if="row.href === '#'")
+                        a(v-bind:href="row.href" v-on:click.stop.prevent='row.event')
+                            .item-content
+                                .item-media(v-html="row.icon")
+                                .item-inner
+                                    span.title {{ row.title }}
+                                    i.icon-arrow(v-if="row.children")
+                        template(v-if="row.children && row.children.length > 0")
+                            ul.sub-menu
+                                li(v-for="child in row.children" v-bind:class="checkActiveRoute(child)")
+                                    template(v-if="child.href === '#'")
+                                        a(v-bind:href="child.href" v-on:click.stop.prevent='child.event')
+                                            span {{ child.title }}
+                                            i.icon-arrow(v-if="child.children")
+                                        template(v-if="child.children && child.children.length > 0")
+                                            ul.sub-menu
+                                                li(v-for="sub_child in child.children")
+                                                    router-link(v-bind:to='sub_child.href') {{ sub_child.title }}
+                                    template(v-else)
+                                        router-link(v-bind:to='child.href')
+                                            span {{ child.title }}
+                    template(v-else)
+                        router-link(v-bind:to='row.href')
+                            .item-content
+                                .item-media(v-html="row.icon")
+                                .item-inner
+                                    span.title {{ row.title }}

@@ -1,0 +1,203 @@
+#container.wrap-content.container
+    section#page-title
+        .row
+            .col-xs-12.col-sm-12.col-md-8.col-lg-8
+                h1.mainTitle User Control
+                span.mainDescription Create New User
+            ol.breadcrumb
+                li
+                    span User Control
+                li.active
+                    span Create New User
+    .container-fluid.container-fullw.bg-offwhite.create-user
+        form
+            .panel.panel-white.no-radius
+                .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                    h4.panel-title.pull-left.padding-15 Create New User
+                .panel-body
+                    .row
+                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            h3.p_subheading Account Info
+                    .row
+                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            p.alert.alert-danger(v-if="errMain !== ''") {{ errMain }}
+                            p.alert.alert-success(v-if="sucMain !== ''") {{ sucMain }}
+
+                        .row
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                                        label.control-label
+                                            | First Name
+                                    .col-xs-12.col-sm-12.col-md-9.col-lg-9
+                                        input.form-control(type='text', placeholder='Peter' v-model='first_name')
+                                        p.text-danger.text-right(v-if='validation.hasError("first_name")') {{ validation.firstError('first_name') }}
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                                        label.control-label
+                                            | Last Name
+                                    .col-xs-12.col-sm-12.col-md-9.col-lg-9
+                                        input.form-control(type='text', placeholder='Clark' v-model='last_name')
+                                        p.text-danger.text-right(v-if='validation.hasError("last_name")') {{ validation.firstError('last_name') }}
+                        .row
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                                        label.control-label
+                                            | Gender
+                                    .col-xs-12.col-sm-12.col-md-9.col-lg-9
+                                        .clip-radio.radio-primary
+                                            input#us-female(type='radio', value='Female', v-model='gender')
+                                            label(for='us-female' style="float: left; width: auto;")
+                                                | Female
+                                            input#us-male(type='radio', value='Male', v-model='gender')
+                                            label(for='us-male' style="float: left; width: auto;")
+                                                | Male
+                                            p.text-danger.text-right(v-if='validation.hasError("gender")') {{ validation.firstError('gender') }}
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                                        label.control-label
+                                            | Email Address
+                                    .col-xs-12.col-sm-12.col-md-9.col-lg-9
+                                        input.form-control(type='email', placeholder='peter@example.com' v-model='email')
+                                        p.text-danger.text-right(v-if='validation.hasError("email")') {{ validation.firstError('email') }}
+                                        .text-right(v-if='validation.isValidating("email")')
+                                            i.fa.fa-spinner.fa-spin
+                        .row
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                                        label.control-label
+                                            | Password
+                                    .col-xs-12.col-sm-12.col-md-9.col-lg-9
+                                        input.form-control(type='password', placeholder='Password' v-model='password')
+                                        p.text-danger.text-right(v-if='validation.hasError("password")') {{ validation.firstError('password') }}
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                                        label.control-label
+                                            | Confirm Password
+                                    .col-xs-12.col-sm-12.col-md-9.col-lg-9
+                                        input.form-control(type='password', placeholder='Re-Type Password' v-model='retype_password')
+                                        p.text-danger.text-right(v-if='validation.hasError("retype_password")') {{ validation.firstError('retype_password') }}
+                        .row
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                com_cities(ref='sel_city')
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                                        label.control-label
+                                            | Zip Code
+                                    .col-xs-12.col-sm-12.col-md-9.col-lg-9
+                                        input.form-control(placeholder='123456', type='text', v-model='zipcode')
+                                        p.text-danger.text-right(v-if='validation.hasError("zipcode")') {{ validation.firstError('zipcode') }}
+
+                        .row
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                                        label.control-label
+                                            | Phone/Mobile
+                                    .col-xs-12.col-sm-12.col-md-9.col-lg-9
+                                        input.form-control.input-mask-phone(type='text', placeholder='Phone/Mobile' v-model='mob_num')
+                                    p.text-danger.text-right(v-if='validation.hasError("mob_num")') {{ validation.firstError('mob_num') }}
+                                .form-group
+                                    .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                                        label
+                                            | Image Upload
+                                    .col-xs-12.col-sm-12.col-md-9.col-lg-9
+                                        .fileinput.fileinput-new(data-provides='fileinput')
+                                            .fileinput-new.thumbnail
+                                                img(v-bind:src='profile_img_src', alt='Profile Image')
+                                            button.btn.btn-primary(v-if="fileLoader" type='button' disabled='disabled')
+                                                i.fa.fa-refresh.fa-spin.fa-fw
+                                            .user-edit-image-buttons(v-else)
+                                                span.btn.btn.btn-o.btn-red.btn-file
+                                                    span.fileinput-new
+                                                        i.fa.fa-picture
+                                                        |  Select image
+                                                    input.btn.btn-o(type='file' id="profile_img")
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                                        label
+                                            | Project
+                                    .col-xs-12.col-sm-12.col-md-9.col-lg-9
+                                        .clip-radio.radio-primary
+                                            input#pro_sel(type='radio', value='Select', v-model='pro_sel_type')
+                                            label(for='pro_sel')
+                                                | Select Project
+                                            input#pro_all(type='radio', value='All', v-model='pro_sel_type')
+                                            label(for='pro_all')
+                                                | All Project
+                                        template(v-if='pro_sel_type === "Select"')
+                                            div.text-center(v-if='dataLoad1')
+                                                i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                            template(v-else)
+                                                select.form-control(v-model='sel_project' multiple)
+                                                    option(v-for='(row, key, ind) in proData' v-bind:value='key') {{ row.name }}
+                                                p.text-danger.text-right(v-if='validation.hasError("sel_project")') {{ validation.firstError('sel_project') }}
+                    .row
+                        .col-xs-12.col-sm-12.col-md-4.col-lg-4.pull-left
+                            button.btn.btn-primary.pull-left(v-if="inProcess" type='button' disabled='disabled')
+                                i.fa.fa-refresh.fa-spin.fa-fw
+                            button.btn.btn-lg.btn-primary.pull-left(v-else type='button' v-on:click.prevent='createUser')
+                                | Submit
+    .container-fluid.container-fullw.create-user.bg-offwhite
+        .panel.panel-white.no-radius
+            .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                h4.panel-title.pull-left.padding-15 USER LIST
+            .panel-body
+                .row
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                        div.text-center(v-if='dataLoad2')
+                            i.fa.fa-refresh.fa-spin.fa-fw.fa-3x
+                        template(v-else)
+                            .row
+                                .col-lg-3.col-md-offset-9
+                                    .form-group
+                                        input.form-control(placeholder='Search...' v-model='search_txt')
+                            template(v-if="Object.keys(pagData).length > 0")
+                                .table-responsive
+                                    table#sample_2.table.table-striped.table-hover
+                                        thead
+                                            tr
+                                                th Full Name
+                                                th Email
+                                                th City
+                                                th Phone
+                                                th Edit
+                                                th.text-right Action
+                                        tbody
+                                            tr(v-for='(row, key, ind) in pagData')
+                                                td {{ row.first_name }} {{ row.last_name }}
+                                                td {{ row.email }}
+                                                td {{ row.city }}
+                                                td {{ row.mob_num }}
+                                                td
+                                                    router-link.edit-row(v-bind:to='"/edit_user/"+key')
+                                                        | Edit
+                                                td.text-right
+                                                    button.btn.btn-small.btn-success(v-if='!row.act_status' v-on:click='active(key)')
+                                                        | Activate
+                                                    button.btn.btn-small.btn-danger(v-else v-on:click='deactive(key)')
+                                                        | Deactivate
+                                .row
+                                    .col-lg-3.col-md-offset-9.text-right
+                                        label Page: {{curPage}}/{{ totPages }}
+                                        .btn-group
+                                            button.btn.btn-sm(v-if='curPage>1' v-on:click='prevPage')
+                                                i.fa.fa-chevron-left
+                                            button.btn.btn-sm(v-else disabled='disabled')
+                                                i.fa.fa-chevron-left
+                                            button.btn.btn-sm(v-if='curPage<totPages' v-on:click='nextPage')
+                                                i.fa.fa-chevron-right
+                                            button.btn.btn-sm(v-else disabled='disabled')
+                                                i.fa.fa-chevron-right
+                            template(v-else)
+                                .row
+                                    .col-lg-12
+                                        h3.text-center No Data Found!
+

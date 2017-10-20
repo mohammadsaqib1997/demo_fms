@@ -1,0 +1,50 @@
+header.navbar.navbar-default.navbar-static-top
+    .navbar-header
+        a.sidebar-mobile-toggler.pull-left.hidden-md.hidden-lg(href='#', data-toggle-class='app-slide-off', data-toggle-target='#app', data-toggle-click-outside='#sidebar')
+            i.ti-align-justify
+        a.navbar-brand(href='/')
+            img(src='/assets/images/fms.png', alt='Finance Management System')
+        a.sidebar-toggler.pull-right.visible-md.visible-lg(href='#', data-toggle-class='app-sidebar-closed', data-toggle-target='#app')
+            i.ti-align-justify
+        a#menu-toggler.pull-right.menu-toggler.visible-xs-block(data-toggle='collapse', href='.navbar-collapse')
+            span.sr-only Toggle navigation
+            i.ti-view-grid
+    .navbar-collapse.collapse
+        .navbar-header
+            a.navbar-brand(href='/') Finance Management System
+        ul.nav.navbar-right
+            li.dropdown-container.current-user
+                a.dropdown.dd-trigger(v-on:click.prevent='showNotifications')
+                    .text-center(v-if='loadImg')
+                        i.fa.fa-refresh.fa-spin.fa-fw
+                    template(v-else='v-else')
+                        img(v-bind:src='pro_img_src', alt='Peter')
+                .dropdown-menu.dropdown-dark.animated
+                    ul.dropdown-body
+                        li.highlight
+                            router-link(to='/profile') {{ s_name }}
+                        li
+                            a(v-on:click.prevent='lockScreen') Lock Screen
+                        li
+                            a(v-on:click.prevent='logout') Log Out
+        .dropdowns-wrapper.pull-right.notifications-section
+            .dropdown-container
+                .notifications.dropdown.dd-trigger(v-on:click.prevent='showNotifications')
+                    span#notifications-count.count.animated {{ countNotif }}
+                    span.fa.fa-bell-o
+                #notification-dropdown.dropdown-menu.animated
+                    .dropdown-header
+                        span.triangle
+                        span.heading Notifications
+                        span#dd-notifications-count.count {{ countNotif }}
+                    .dropdown-body
+                        .notification.text-center(v-if='loadNoti')
+                            i.fa.fa-refresh.fa-spin.fa-fw(style='color:whitesmoke;')
+                        .notification(v-else v-for='noti in notiData')
+                            .notification-image-wrapper
+                                .notification-image
+                                    i.fa.fa-bell(style='color:whitesmoke;')
+                            .notification-text
+                                //span.highlight Fauzan Khan
+                                | {{ noti }}
+

@@ -1,0 +1,36 @@
+.bg-offwhite
+    #container.wrap-content.container-fluid
+        section#page-title
+            .row
+                .col-md-2.border-right(style='border-color: #aeaeae;')
+                    img(src='/assets/images/logo.png', class="logo-image", style='width: 100%;max-width:230px;')
+                .col-sm-8
+                    .col-sm-8
+                        h1.mainTitle(style='font-size: 38.02px;') {{ optionalData.title }}
+                        span.mainDescription(style='font-size: 19px;color: #ec5d58;') {{ optionalData.subTitle }}
+    .row.padding-30
+        .col-md-12
+            .text-center(v-if='dataLoad1')
+                i.fa.fa-refresh.fa-spin.fa-3x
+            .panel.panel-white.no-radius(v-else)
+                .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                    h4.panel-title.pull-left.padding-15 Project Name: {{ optionalData.proName }}
+                    h6.pull-right.text-right.padding-15 Create Date: {{ optionalData.date }}
+                .panel-body.padding-30
+                    table.table.table-striped.table-responsive.misreport(cellpadding='5' style='width:100%;' border=1)
+                        tbody
+                            tr.background-e2e8f0.no-border
+                                th(style='width:25%;') Account Code
+                                th(style='text-align:center;width:50%;') Account Description
+                                th(style='text-align:right;width:25%;') Reference Code
+                            tr
+                                td.no-padding.no-border(colspan='3')
+                                    table.table.table-striped.table-responsive.with-border(cellpadding='5' style='width:100%;margin: 0 auto;')
+                                        tbody
+                                            tr(v-for='(item, id, ind) in fetchData')
+                                                td(style="width:40px;") {{ id }}
+                                                td {{ item.name }}
+                    button.btn.btn-danger.btn-lg.btn-dark-Red.text-uppercase(type='button' style="margin-right:20px;" data-toggle="modal" data-target="#download-pdf") Save
+                    button.btn.btn-dark-black.btn-lg.text-uppercase(type='button' onclick="window.print();") Print
+
+    downloadSheetModel(v-bind:fetchData='fetchData' v-bind:optionalData='optionalData' v-bind:dLinks='dLinks')

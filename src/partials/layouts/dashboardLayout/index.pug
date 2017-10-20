@@ -1,0 +1,10 @@
+div
+    sidebar
+    div.app-content
+        header_com
+        .main-content
+            .alertsbar(v-if="show")
+                strong {{ username }}:
+                |  You are logged in as an {{ type }}.
+            router-view
+    footer_com

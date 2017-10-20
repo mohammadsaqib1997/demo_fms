@@ -1,0 +1,103 @@
+#container.wrap-content.container.page-dashboard
+    section#page-title.padding-top-15.padding-bottom-15
+        .row
+            .col-sm-7
+                h1.mainTitle Dashboard
+                span.mainDescription Status & Reports
+            .col-sm-5
+                dashboardSearch
+    .container-fluid.container-fullw.bg-offwhite
+        .row
+            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                .panel.panel-white.no-radius
+                    .panel-heading.border-bottom.border-left.border-yellow
+                        h4.panel-title Daily Reports
+                    .row
+                        .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                            .panel-body
+                                .text-center
+                                    span.mini-pie
+                                        canvas#chart3.full-width
+                                        span 680
+                                .margin-top-20.text-center.legend-xs.inline
+                                    #chart3Legend.chart-legend
+                        .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                            .panel-footer
+                                .clearfix.padding-0.space0
+                                    .col-xs-12.col-sm-4.col-md-12.col-lg-12.text-center.background-f8f8f8.chart-heading
+                                        .row
+                                            span.text-light.text-left.text-font-21.col-xs-12.col-sm-6.col-md-6.col-lg-6.pull-right Income
+                                            span.text-bold.block.text-font-62.col-xs-12.col-sm-6.col-md-6.col-lg-6.pull-left 100%
+                                    .col-xs-12.col-sm-4.col-md-12.col-lg-12.text-center.background-efefef.chart-heading
+                                        .row
+                                            span.text-light.text-left.text-font-21.col-xs-12.col-sm-6.col-md-6.col-lg-6.pull-right Expense
+                                            span.text-bold.block.text-font-62.col-xs-12.col-sm-6.col-md-6.col-lg-6.pull-left 100%
+                                    .col-xs-12.col-sm-4.col-md-12.col-lg-12.text-center.background-e6e6e6.chart-heading
+                                        .row
+                                            span.text-light.text-left.text-font-21.col-xs-12.col-sm-6.col-md-6.col-lg-6.pull-right Total
+                                            span.text-bold.block.text-font-62.col-xs-12.col-sm-6.col-md-6.col-lg-6.pull-left 100%
+            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                calendarCom
+    .container-fluid.container-fullw.bg-offwhite
+        .row
+            .col-xs-12.col-sm-12.col-md-6.col-lg-6.padding-right-0
+                .col-xs-12.col-sm-3.col-md-3.col-lg-3.padding-none
+                    a(href='#' data-toggle="modal" data-target="#add_project")
+                        .circle-tile
+                            .circle-tile-content.blue
+                                .color-white(style=' margin-bottom: 20px; ')
+                                    img(src="/assets/images/icons/projects.png")
+                                .circle-tile-description.text-faded Project
+                .col-xs-12.col-sm-3.col-md-3.col-lg-3.padding-none
+                    a(href='/create_control' target="_blank")
+                        .circle-tile
+                            .circle-tile-content.green
+                                .color-white(style='margin-bottom: 20px;')
+                                    img(src="/assets/images/icons/control.png")
+                                .circle-tile-description.text-faded Control
+                .col-xs-12.col-sm-3.col-md-3.col-lg-3.padding-none
+                    a(href='/create_sub_control' target="_blank")
+                        .circle-tile
+                            .circle-tile-content.dark-blue
+                                .color-white(style='margin-bottom: 20px;')
+                                    img(src="/assets/images/icons/sub-control.png")
+                                .circle-tile-description.text-faded Sub Control
+                .col-xs-12.col-sm-3.col-md-3.col-lg-3.padding-none
+                    a(href='/create_subsidiary' target="_blank")
+                        .circle-tile
+                            .circle-tile-content.yellow
+                                .color-white(style='margin-bottom: 20px;')
+                                    img(src="/assets/images/icons/subsidary.png")
+                                .circle-tile-description.text-faded Subsidiary
+            .col-xs-12.col-sm-12.col-md-6.col-lg-6.padding-left-0
+                .col-xs-12.col-sm-3.col-md-3.col-lg-3.padding-none
+                    a(href='/master_details' target="_blank")
+                        .circle-tile
+                            .circle-tile-content.red
+                                .color-white(style='margin-bottom: 20px;')
+                                    img(src="/assets/images/icons/userDetails.png")
+                                .circle-tile-description.text-faded Customer Detail
+                .col-xs-12.col-sm-3.col-md-3.col-lg-3.padding-none
+                    a(href='/add_party' target="_blank")
+                        .circle-tile
+                            .circle-tile-content.purple
+                                .color-white(style='margin-bottom: 20px;')
+                                    img(src="/assets/images/icons/vendorDetails.png")
+                                .circle-tile-description.text-faded Vendor Details
+                .col-xs-12.col-sm-3.col-md-3.col-lg-3.padding-none
+                    a(href='/post_unpost' target="_blank")
+                        .circle-tile
+                            .circle-tile-content.orange
+                                .color-white(style='margin-bottom: 20px;')
+                                    img(src="/assets/images/icons/post-unpost.png")
+                                .circle-tile-description.text-faded Post/UnPost
+                .col-xs-12.col-sm-3.col-md-3.col-lg-3.padding-none
+                    a(href='#' data-toggle="modal" data-target="#calculator")
+                        .circle-tile
+                            .circle-tile-content.gray
+                                .color-white(style='margin-bottom: 20px;')
+                                    img(src="/assets/images/icons/calc.png")
+                                .circle-tile-description.text-faded Calculator
+    projectModel
+    calculatorModel(v-on:send_key='receive_key')
+    calculatorInfo(v-bind:cal_key='cal_key')

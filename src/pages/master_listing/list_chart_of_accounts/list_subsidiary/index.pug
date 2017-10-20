@@ -1,0 +1,75 @@
+#container.wrap-content.container
+    section#page-title
+        .row
+            .col-xs-12.col-sm-12.col-md-8.col-lg-8
+                h1.mainTitle Master Listing
+                span.mainDescription List: Chart Of Account
+            ol.breadcrumb
+                li
+                    span Master Listing
+                li
+                    span List: Chart Of Account
+                li.active
+                    span Subsidiary
+    .container-fluid.container-fullw.bg-offwhite
+        form(v-on:submit.prevent='showSheet')
+            .row
+                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                    .panel.panel-white.no-radius
+                        .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                            h4.panel-title.pull-left.padding-15 Subsidiary
+                        .panel-body
+                            .row
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .form-group
+                                        .row
+                                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                                .text-center(v-if='dataLoad1')
+                                                    i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                                template(v-else='v-else')
+                                                    label Project
+                                                    select.form-control(name='sel_project', v-model='sel_project')
+                                                        option(value='') Select Project
+                                                        option(v-for='(row, key, ind) in proData', v-bind:value='key') {{ row.name }}
+                                                    p.text-danger.text-right(v-if='validation.hasError("sel_project")') {{ validation.firstError('sel_project') }}
+                            .row
+                                .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                    .form-group
+                                        .row
+                                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                                label Start Date
+                                                .input-group.date
+                                                    input.form-control.datepicker.start_date(type='text', placeholder='Enter your Starting Date')
+                                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                                label End Date
+                                                .input-group.date
+                                                    input.form-control.datepicker.end_date(type='text', placeholder='Enter your Ending Date')
+                            .row(v-if='dataLoad2')
+                                .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                    .text-center
+                                        i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                            template(v-else='v-else')
+                                .row
+                                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                        .form-group
+                                            .row
+                                                .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                                    label Starting Subsidiary
+                                                    select.form-control(name='sel_subs_start', v-model='sel_subs_start')
+                                                        option(value='') Select Subsidiary
+                                                        option(v-for='(row, key, ind) in subsData', v-bind:value='key') {{ row.name }}
+                                                    p.text-danger.text-right(v-if='validation.hasError("sel_subs_start")') {{ validation.firstError('sel_subs_start') }}
+                                .row
+                                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                        .form-group
+                                            .row
+                                                .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                                    label Ending Subsidiary
+                                                    select.form-control(name='sel_subs_end', v-model='sel_subs_end')
+                                                        option(value='') Select Subsidiary
+                                                        option(v-for='(row, key, ind) in subsData', v-bind:value='key') {{ row.name }}
+                                                    p.text-danger.text-right(v-if='validation.hasError("sel_subs_end")') {{ validation.firstError('sel_subs_end') }}
+                            .row(v-if='validForm')
+                                .col-xs-12.col-sm-12.col-md-4.col-lg-4.pull-left
+                                    a.btn.btn-lg.btn-primary.btn-wide.pull-left(v-bind:href='anchURL' target='_blank')
+                                        | Submit

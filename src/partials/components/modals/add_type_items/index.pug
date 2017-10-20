@@ -1,0 +1,58 @@
+.modal.fade.modal-aside.horizontal.right.add-control(tabindex='-1' id="add_type_items" role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+    .modal-dialog.modal-dialog.modal-sm
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4#myModalLabel.modal-title Add Type Item
+            .modal-body
+                form(v-on:submit.prevent='addTypeItem')
+                    .form-group
+                        p.alert.alert-danger(v-if="errMain !== ''") {{ errMain }}
+                        p.alert.alert-success(v-if="sucMain !== ''") {{ sucMain }}
+                        .row.margin-bottom-10
+                            .col-md-12
+                                .form-group
+                                    div.text-center(v-if='dataLoad1')
+                                        i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                    template(v-else)
+                                        label Project Name
+                                        select.form-control(v-model='sel_project')
+                                            option(value='') Select Project
+                                            option(v-for='(row, key, ind) in proData' v-bind:value='key') {{ row.name }}
+                                        p.text-danger.text-right(v-if='validation.hasError("sel_project")') {{ validation.firstError('sel_project') }}
+                            //.col-md-12
+                            //    .form-group
+                            //        div.text-center(v-if='dataLoad2')
+                            //            i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                            //        template(v-else)
+                            //            label Type
+                            //            select.form-control(v-model='sel_type')
+                            //                option(value='') Select Type
+                            //                option(v-for='(row, key, ind) in proTypesData' v-bind:value='key') {{ row.name }}
+                            //            p.text-danger.text-right(v-if='validation.hasError("sel_type")') {{ validation.firstError('sel_type') }}
+                            .col-md-12
+                                .form-group
+                                    div.text-center(v-if='dataLoad3')
+                                        i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                    template(v-else)
+                                        label Subsidiary
+                                        select.form-control(v-model='sel_subs')
+                                            option(value='') Select Subsidiary
+                                            option(v-for='(row, key, ind) in regSubsData' v-bind:value='key') {{ row.name }}
+                                        p.text-danger.text-right(v-if='validation.hasError("sel_subs")') {{ validation.firstError('sel_subs') }}
+                                        .text-right(v-if='validation.isValidating("sel_subs")')
+                                            i.fa.fa-spinner.fa-spin
+                            .col-md-12
+                                .form-group
+                                    label Name
+                                    input.form-control(type='text', placeholder='Name' v-model="name")
+                                    p.text-danger.text-right(v-if='validation.hasError("name")') {{ validation.firstError('name') }}
+                                    .text-right(v-if='validation.isValidating("name")')
+                                        i.fa.fa-spinner.fa-spin
+                    button.btn.btn-primary(type='submit' v-if="!inProcess")
+                        | Save
+                    button.btn.btn-primary.btn-o.pull-right(type='button', data-dismiss='modal')
+                        | Cancel
+                    button.btn.btn-primary.mar-lf-10(type='button' disabled='disabled' v-if="inProcess")
+                        i.fa.fa-refresh.fa-spin.fa-fw

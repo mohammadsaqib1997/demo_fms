@@ -1,0 +1,51 @@
+#container.wrap-content.container.bs_list_control.msi_reports
+    section#page-title
+        .row
+            .col-xs-12.col-sm-12.col-md-8.col-lg-8
+                h1.mainTitle MIS Reports
+                span.mainDescription Balance Sheet
+            ol.breadcrumb
+                li
+                    span MIS Reports
+                li
+                    span Balance Sheet
+                li.active
+                    span Control
+    .container-fluid.container-fullw.bg-offwhite
+        .row
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                .panel.panel-white.no-radius
+                    .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                        h4.panel-title.pull-left.padding-15 MIS Reports / Balance Sheet / Control
+                    .panel-body
+                        .row
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                div.text-center(v-if='dataLoad1')
+                                    i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                template(v-else)
+                                    .form-group
+                                        label Project
+                                        select.form-control(name='sel_project' v-model='sel_project')
+                                            option(value='') Select Project
+                                            option(v-for='(row, key, ind) in proData' v-bind:value='key') {{ row.name }}
+                                        p.text-danger.text-right(v-if='validation.hasError("sel_project")') {{ validation.firstError('sel_project') }}
+                        .row
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    label
+                                        | Start Date
+                                    .input-group.date
+                                        input.form-control.datepicker.start_date(type='text', name="start_date" placeholder='Enter your Starting Date')
+                                        p.text-danger.text-right(v-if='validation.hasError("start_date")') {{ validation.firstError('start_date') }}
+                        .row
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                .form-group
+                                    label
+                                        | End Date
+                                    .input-group.date
+                                        input.form-control.datepicker.end_date(type='text', name="end_date" placeholder='Enter your Ending Date')
+                                        p.text-danger.text-right(v-if='validation.hasError("end_date")') {{ validation.firstError('end_date') }}
+                        .row(v-if='validForm')
+                            .col-xs-12.col-sm-12.col-md-4.col-lg-4.pull-left
+                                a.btn.btn-lg.btn-primary.btn-wide.pull-left(v-bind:href='anchURL' target='_blank')
+                                    | Submit

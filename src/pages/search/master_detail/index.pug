@@ -1,0 +1,149 @@
+#container.wrap-content.container
+    section#page-title
+        .row
+            .col-xs-12.col-sm-12.col-md-8.col-lg-8
+                h1.mainTitle Search
+                span.mainDescription Customer Detail
+            ol.breadcrumb
+                li
+                    span Search
+                li.active
+                    span Customer Detail
+    .container-fluid.container-fullw.bg-offwhite.profile_page
+        .panel.panel-white.no-radius
+            .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                h4.panel-title.pull-left.padding-15 Customer Detail
+            .panel-body
+                div.text-center(v-if='dataLoad1')
+                    i.fa.fa-refresh.fa-spin.fa-fw.fa-3x
+                template(v-if="!dataLoad1 && mdData === null")
+                    h3.text-center No Data Found
+                template(v-if="!dataLoad1 && mdData !== null")
+                    .row
+                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            h3.p_subheading Person Details
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Project
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.sel_project }}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Type
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.sel_type }}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label {{ mdData.sel_type }} No.
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.sel_pro_type_no }}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Broker
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.sel_broker }}
+                    .row
+                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            h3.p_subheading Allotee Details
+                    .row
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Allotee Code
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.allotee_code }}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Allotee Name
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.allotee_name }}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Contact No.
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.contact_no }}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label E-Mail
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.allotee_email }}
+                    .row
+                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            h3.p_subheading Booking Details
+                    .row
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Document Year
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.doc_year }}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Booking Date
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.booking_date }}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Selling Price
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.selling_price }}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Booking Amount
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.booking_amount }}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Payment Plan
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.payment_plan }}/month
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Installment
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{ mdData.payment_installment }} months
+                    .row
+                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            h3.p_subheading Master Detail Entries
+                    table.table-responsive.table.table-striped.misreport(cellpadding='5', style='width:100%;', border='1')
+                        tbody
+                            tr.background-e2e8f0.no-border
+                                th.col-md-1 Code
+                                th.col-md-1 Account Description
+                                th.col-md-1 Remarks
+                                th.col-md-1 Quantity
+                                th.col-md-1 Debit
+                                th.col-md-1 Credit
+                            tr(v-for="row in entsData")
+                                td.col-md-1 {{ row.code }}
+                                td.col-md-1 {{ row.code_name }}
+                                td.col-md-1 {{ row.remarks }}
+                                td.col-md-1 {{ row.quantity }}
+                                td.col-md-1 {{ row.debit }}
+                                td.col-md-1 {{ row.credit }}

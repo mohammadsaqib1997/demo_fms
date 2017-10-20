@@ -1,0 +1,169 @@
+.bg-offwhite
+    #container.wrap-content.container-fluid
+        section#page-title
+            .row
+                .col-md-2.border-right(style='border-color: #aeaeae;')
+                    img(src='/assets/images/logo.png', class="logo-image", style='width: 100%;max-width:230px;')
+                .col-sm-8
+                    .col-sm-8
+                        h1.mainTitle(style='font-size: 38.02px;') {{ optionalData.title }}
+                        span.mainDescription(style='font-size: 19px;color: #ec5d58;') {{ optionalData.subTitle }}
+    .row.padding-30
+        .col-md-12
+            .text-center(v-if='dataLoad1')
+                i.fa.fa-refresh.fa-spin.fa-3x
+            .panel.panel-white.no-radius(v-else)
+                .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                    h4.panel-title.pull-left.padding-15 {{fetchData.data.sel_project}} - {{fetchData.data.allotee_name}}
+                    h6.pull-right.text-right.padding-15 Create Date: {{ optionalData.date }}
+                .panel-body.padding-30
+                    .row
+                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            h3.p_subheading Person Details
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Project
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.sel_project}}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Type
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.sel_type}}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label {{fetchData.data.sel_type}} No.
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.sel_pro_type_no}}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Broker
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.sel_broker}}
+                    .row
+                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            h3.p_subheading Allotee Details
+                    .row
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Allotee Code
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.allotee_code}}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Allotee Name
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.allotee_name}}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Contact No.
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.contact_no}}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label E-Mail
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.allotee_email}}
+                    .row
+                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            h3.p_subheading Booking Details
+                    .row
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Document Year
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.doc_year}}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Booking Date
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.booking_date}}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Selling Price
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.selling_price}}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Booking Amount
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.booking_amount}}
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Payment Plan
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.payment_plan}}/month
+                        .col-xs-12.col-sm-12.col-md-3.col-lg-3
+                            .form-group
+                                .row
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                        label Installment
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                        strong {{fetchData.data.payment_installment}} months
+                    .row
+                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            h3.p_subheading Monthly Payment Details
+                    table.table-responsive.table.table-striped.misreport(cellpadding='5', style='width:100%;', border='1')
+                        tbody
+                            tr.background-e2e8f0.no-border
+                                th.col-md-1 Installment No.
+                                th.col-md-1 Voucher Type
+                                th.col-md-1 Voucher ID
+                                th.col-md-1 Payment Date
+                                th.col-md-1 Due Date
+                                th.col-md-1 Penalty
+                                th.col-md-1 Installment
+                                th.col-md-1 Amount
+                                th.col-md-1 Remaining Amount
+                                th.col-md-1 Status
+                                th.col-md-1 Balance
+                            tr(v-for='(ent, ind) in fetchData.entData')
+                                td.col-md-1 {{ ent.inst_ind }}
+                                td.col-md-1 {{ent.type}}
+                                td.col-md-1 {{ent.voucher_id}}
+                                td.col-md-1(style='width:40px;') {{(ent.pay_date) ? ent.pay_date : ""}}
+                                td.col-md-1(style='width:40px;') {{ent.due_date}}
+                                td.col-md-1 {{ent.penalty}}
+                                td.col-md-1 {{ent.installment}}
+                                td.col-md-1 {{ent.amount}}
+                                td.col-md-1 {{ent.remaining}}
+                                td.col-md-1 {{((ent.installment - ent.amount) > 0) ? "Unpaid" : "Paid"}}
+                                td.col-md-1 {{ent.balance}}
+                            tr.no-border
+                                td(colspan='4')
+                                td.col-md-1 Total
+                                td.background-e6e6e6 {{fetchData.reqData.totPenalty}}
+                                td.background-e6e6e6 {{fetchData.reqData.totInstallment}}
+                                td.background-e6e6e6 {{fetchData.reqData.totAmount}}
+                                td.background-e6e6e6 {{fetchData.reqData.totRemAmount}}
+                                td(colspan='2')
+                    button.btn.btn-danger.btn-lg.btn-dark-Red.text-uppercase(type='button' style="margin-right:20px;" data-toggle="modal" data-target="#download-pdf") Save
+                    button.btn.btn-dark-black.btn-lg.text-uppercase(type='button' onclick="window.print();") Print
+
+    downloadSheetModel(v-bind:fetchData='fetchData' v-bind:optionalData='optionalData' v-bind:dLinks='dLinks')

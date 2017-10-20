@@ -1,0 +1,42 @@
+.modal.fade.modal-aside.center(tabindex='-1' id="download-pdf" role='dialog', aria-labelledby='Download Sheet', aria-hidden='true')
+    .modal-dialog.modal-md
+        .modal-content
+            .modal-header.bg-red
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4#myModalLabel.modal-title.text-left Select Download File
+            .modal-body.red-popup
+                .row
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12.margin-bottom-30
+                        button.btn-default.btn.btn-o.btn-lg.col-xs-12.col-sm-12.col-md-12.col-lg-12.download-button(v-if='pdfLoader')
+                            .fa.fa-refresh.fa-spin.fa-3x
+                        template(v-else)
+                            button.btn-default.btn.btn-o.btn-lg.col-xs-12.col-sm-12.col-md-12.col-lg-12.download-button(v-if='!pdfDownload' v-on:click.prevent='pdf')
+                                img.pull-left(src="/assets/images/icons/pdf-icon.png" style="margin-right:15px;")
+                                | Download in PDF
+                            button.btn-default.btn.btn-o.btn-lg.col-xs-12.col-sm-12.col-md-12.col-lg-12.download-button(v-else)
+                                | Download automatically in {{ pdfCounter }} seconds...
+                                a#pdfDownload.pull-right(v-bind:href='pdfDownload' v-bind:download="pdfFile")
+                                    i.fa.fa-download
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12.margin-bottom-30
+                        button.btn-default.btn.btn-o.btn-lg.col-xs-12.col-sm-12.col-md-12.col-lg-12.download-button(v-if='htmlLoader')
+                            .fa.fa-refresh.fa-spin.fa-3x
+                        template(v-else)
+                            button.btn-default.btn.btn-o.btn-lg.col-xs-12.col-sm-12.col-md-12.col-lg-12.download-button(v-if='!htmlDownload' v-on:click.prevent='html')
+                                img.pull-left(src="/assets/images/icons/html-icon.png" style="margin-right:15px;")
+                                | Download in Html
+                            button.btn-default.btn.btn-o.btn-lg.col-xs-12.col-sm-12.col-md-12.col-lg-12.download-button(v-else)
+                                | Download automatically in {{ htmlCounter }} seconds...
+                                a#htmlDownload.pull-right(v-bind:href='htmlDownload' v-bind:download="htmlFile")
+                                    i.fa.fa-download
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12.margin-bottom-0(v-if='dLinks["csv"] !== null')
+                        button.btn-default.btn.btn-o.btn-lg.col-xs-12.col-sm-12.col-md-12.col-lg-12.download-button(v-if='csvLoader')
+                            .fa.fa-refresh.fa-spin.fa-3x
+                        template(v-else)
+                            button.btn-default.btn.btn-o.btn-lg.col-xs-12.col-sm-12.col-md-12.col-lg-12.download-button(v-if='!csvDownload' v-on:click.prevent='csv')
+                                img.pull-left(src="/assets/images/icons/excel-icon.png" style="margin-right:15px;")
+                                | Download in Excel
+                            button.btn-default.btn.btn-o.btn-lg.col-xs-12.col-sm-12.col-md-12.col-lg-12.download-button(v-else)
+                                | Download automatically in {{ csvCounter }} seconds...
+                                a#csvDownload.pull-right(v-bind:href='csvDownload' v-bind:download="csvFile")
+                                    i.fa.fa-download

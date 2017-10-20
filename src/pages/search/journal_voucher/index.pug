@@ -1,0 +1,98 @@
+#container.wrap-content.container
+    section#page-title
+        .row
+            .col-xs-12.col-sm-12.col-md-8.col-lg-8
+                h1.mainTitle Search
+                span.mainDescription Journal Voucher
+            ol.breadcrumb
+                li
+                    span Search
+                li.active
+                    span Journal Voucher
+    .container-fluid.container-fullw.bg-offwhite
+        .row.voucher_details
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                .panel.panel-white.no-radius
+                    .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                        h4.panel-title.pull-left.padding-15 Journal Voucher
+                    .panel-body
+                        div.text-center(v-if='dataLoad1')
+                            i.fa.fa-refresh.fa-spin.fa-fw.fa-3x
+                        template(v-if="!dataLoad1 && jvData === null")
+                            h3.text-center No Data Found
+                        template(v-if="!dataLoad1 && jvData !== null")
+                            .row
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    h3.p_subheading Voucher Details
+                            .row
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .row
+                                        .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                            .form-group
+                                                .row
+                                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                        label
+                                                            | Voucher ID
+                                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                        p {{ jvData.id }}
+                                            .form-group
+                                                .row
+                                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                        label
+                                                            | Remark
+                                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                        p {{ jvData.v_remarks }}
+                                            .form-group
+                                                .row
+                                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                        label
+                                                            | Voucher Date
+                                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                        p {{ jvData.voucher_date }}
+                                            .form-group
+                                                .row
+                                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                        label
+                                                            | Posted Y/N
+                                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                        p {{ jvData.posted_status }}
+                                        .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                            .form-group
+                                                .row
+                                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                        label
+                                                            | Reference Type
+                                                    p {{ jvData.ref_type }}
+                                            .form-group
+                                                .row
+                                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                        label
+                                                            | {{ (jvData.ref_type === 'md') ? 'Customer':'Vendor' }} Detail
+                                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                        p  {{ jvData.ref_key }}
+                                            .form-group
+                                                .row
+                                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                        label
+                                                            | Project
+                                                    .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                        p {{ jvData.sel_project }}
+                                    .row
+                                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                            h3.p_subheading Account Details
+                                    table.table-responsive.table.table-striped.misreport(cellpadding='5', style='width:100%;', border='1')
+                                        tbody
+                                            tr.background-e2e8f0.no-border
+                                                th.col-md-1 Code
+                                                th.col-md-1 Account Description
+                                                th.col-md-1 Remarks
+                                                th.col-md-1 Quantity
+                                                th.col-md-1 Debit
+                                                th.col-md-1 Credit
+                                            tr(v-for="row in entsData")
+                                                td.col-md-1 {{ row.code }}
+                                                td.col-md-1 {{ row.code_name }}
+                                                td.col-md-1 {{ row.remarks }}
+                                                td.col-md-1 {{ row.quantity }}
+                                                td.col-md-1 {{ row.debit }}
+                                                td.col-md-1 {{ row.credit }}

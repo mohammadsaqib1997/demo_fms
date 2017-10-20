@@ -1,0 +1,28 @@
+extends partials/header_table
+block content
+    table(style='width:100%;font-size: 14px;color: #545454 !important;font-weight: 400;border-spacing: 0;border-collapse: collapse;border: 0px;background: #ffffff;min-height: .01%;overflow-x: auto;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;', border='1', cellpadding='5')
+        tbody
+            tr(style='border: 0px;font-size: 14px;font-weight: 400;font-family: Helvetica, sans-serif;text-align: left;')
+                th(style='width:25%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Account Code
+                th(style='width:50%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Account Description
+                th(style='width:25%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Reference Code
+            tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;border-color:#e2e2e4;')
+                td(style='vertical-align: middle;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;padding: 0px;line-height: 1.42857143;border: 0px solid;' colspan='3')
+                    table(cellpadding='5' style='width:100%;border-spacing: 0;border-bottom: 0px solid;border-collapse: collapse;')
+                        each cont_item in fetchData.cont_data
+                            tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;border-color:#e2e2e4;')
+                                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:40px;') #{cont_item.id}
+                                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;' colspan='3') #{cont_item.name}
+                            each sCont_item in fetchData.sub_cont_data
+                                if sCont_item.cont_id === cont_item.id
+                                    tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;border-color:#e2e2e4;')
+                                        td(style='border: 0px solid #e2e2e4;background: #fff;')
+                                        td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:40px;') #{sCont_item.id}
+                                        td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;' colspan='2') #{sCont_item.name}
+                                    each subs_item in fetchData.subs_data
+                                        if subs_item.cont_id === cont_item.id && subs_item.sub_cont_id === sCont_item.id
+                                            tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;border-color:#e2e2e4;')
+                                                td(style='border: 0px solid #e2e2e4;background: #fff;')
+                                                td(style='border: 0px solid #e2e2e4;background: #fff;')
+                                                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:40px;') #{subs_item.id}
+                                                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;') #{subs_item.name}

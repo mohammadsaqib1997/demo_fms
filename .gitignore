@@ -1,0 +1,8 @@
+node_modules
+config
+.DS_Store
+.idea
+*.zip
+public/vue_frameworks/app/*.js
+_old_*.js
+public/temp

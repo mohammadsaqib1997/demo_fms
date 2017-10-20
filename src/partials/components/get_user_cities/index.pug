@@ -1,0 +1,22 @@
+div.form-group
+    .col-md-3(v-if="typeof label_con === 'undefined' || label_con")
+        label.control-label
+            | City
+    div(v-bind:class="(typeof label_con === 'undefined' || label_con) ? 'col-md-9':''")
+        input.form-control.tooltips.typeahead(
+            type='text'
+            placeholder='Karachi'
+            autocomplete='off'
+            v-model='query'
+            v-on:keydown.down='down'
+            v-on:keydown.up='up'
+            v-on:keydown.enter='hit'
+            v-on:keydown.esc='reset'
+            v-on:blur='reset_items'
+            v-on:input='update'
+            )
+        p.text-danger.text-right(v-if='validation.hasError("query")') {{ validation.firstError('query') }}
+        ul(v-show='hasItems')
+            li(v-for='(item, $item) in items' v-bind:class='activeClass($item)' v-on:mousedown='hit' v-on:mousemove='setActive($item)')
+                span.name(v-text='item.terms[0].value')
+                span.des(v-text='item.description')

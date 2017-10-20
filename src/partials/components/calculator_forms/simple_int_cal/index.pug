@@ -1,0 +1,39 @@
+div
+    .interestlabel.form-group
+        fieldset
+            label.control-label(for='given_data') Solve for:
+            .row
+                .col-md-12
+                    select#given_data.form-control(v-model='interest_select')
+                        option(v-for='(row, ind) in int_sel_data' v-bind:value='ind') {{ row.title }}
+                    span.formula Where: {{ int_sel_formulas[int_sel_data[interest_select].ref] }}
+    .interestform.form-container
+        .commonTable
+            .row.form-group(v-if='v_fields.a')
+                .col-md-12
+                    input.form-control(v-model='fields.a', type='text', title='Total P+I (A): Rs', placeholder='Total P+I (A): Rs')
+                    p.alert.alert-danger(v-if='validation.hasError("fields.a")') {{ validation.firstError('fields.a') }}
+            .row.form-group(v-if='v_fields.p')
+                .col-md-12
+                    input.form-control(v-model='fields.p', type='text', title='Principal (P): Rs', placeholder='Principal (P): Rs')
+                    p.alert.alert-danger(v-if='validation.hasError("fields.p")') {{ validation.firstError('fields.p') }}
+            .row.form-group(v-if='v_fields.r')
+                .col-md-12
+                    input.form-control(v-model='fields.r', type='text', title='Rate: %', placeholder='Rate (R): % per year')
+                    p.alert.alert-danger(v-if='validation.hasError("fields.r")') {{ validation.firstError('fields.r') }}
+            .row.form-group
+                .col-md-6(v-if='v_fields.t')
+                    input.form-control.nmbr_real.real(v-model='fields.t', type='text', title='Time', placeholder='Time:')
+                    p.alert.alert-danger(v-if='validation.hasError("fields.t")') {{ validation.firstError('fields.t') }}
+                .col-md-6(v-if='v_fields.t_unit')
+                    select#time_t.form-control(v-model='fields.t_unit')
+                        option(value='') Time Unit
+                        option(v-for='(row, ind) in t_unit_data' v-bind:value='row.val') {{ row.title }}
+                    p.alert.alert-danger(v-if='validation.hasError("fields.t_unit")') {{ validation.firstError('fields.t_unit') }}
+            .row.form-group
+                .col-md-6.pull-right
+                    .calculatorButton.pull-right
+                        button.btn.btn-red.btn-md.text-uppercase(v-on:click.prevent='calculate') Calculate
+                .col-md-6.pull-left
+                    .calculatorButton.pull-left
+                        button.btn.btn-red.btn-o.btn-md.text-uppercase(v-on:click.prevent='resetFields(true)') Clear

@@ -1,0 +1,43 @@
+extends partials/header_table
+block content
+    table(style='width:100%;font-size: 14px;color: #545454 !important;font-weight: 400;border-spacing: 0;border-collapse: collapse;border: 0px;background: #ffffff;min-height: .01%;overflow-x: auto;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;', border='1', cellpadding='5')
+        tbody
+            tr(style='border: 0px;font-size: 14px;font-weight: 400;font-family: Helvetica, sans-serif;text-align: left;')
+                th(style='border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #f9f9f9;border: none;padding: 8px;line-height: 1.42857143;text-align:center' colspan=2)
+                th(style='border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #f9f9f9;border: none;padding: 8px;line-height: 1.42857143;text-align:center' colspan=2) Opening
+                th(style='border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #f9f9f9;border: none;padding: 8px;line-height: 1.42857143;text-align:center' colspan=2) Activity During Period
+                th(style='border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #f9f9f9;border: none;padding: 8px;line-height: 1.42857143;text-align:center' colspan=2) Closing
+            tr.background-e2e8f0.no-border
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Code
+                th(style='width:30%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Account Description
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Debit Balance
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Credit Balance
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Debit Activity
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Credit Activity
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Debit Balance
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Credit Balance
+            - var i = 0;
+            - var count = Object.keys(fetchData).length;
+            each item in fetchData.data
+                - i += 1;
+                tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;'+(((i%2) === 0) ? 'background-color: #f9f9f9;':'')+((count !== i) ? 'border-bottom: 1px solid #e2e2e4;':''))
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:40px;') #{item.id}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:30%;') #{item.name}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{item.totODr}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{item.totOCr}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{item.totDr}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{item.totCr}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{item.totCDr}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{item.totCCr}
+
+            tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;border-color:#e2e2e4;font-weight:bold;')
+                td(style='vertical-align: middle;#e2e2e4;border: 0px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;text-align:right;' colspan='2') Grand Total (Rs.)
+                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.grTotODr}
+                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.grTotOCr}
+                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.grTotDr}
+                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.grTotCr}
+                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.grTotCDr}
+                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.grTotCCr}
+            tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;border-color:#e2e2e4;font-weight:bold;')
+                td(style='vertical-align: middle;#e2e2e4;border: 0px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;text-align:right;' colspan=7) Difference
+                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;background-color: #f9f9f9;') #{fetchData.reqData.grTotCDr - fetchData.reqData.grTotCCr}

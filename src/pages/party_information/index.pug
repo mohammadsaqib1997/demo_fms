@@ -1,0 +1,145 @@
+#container.wrap-content.container
+    section#page-title
+        .row
+            .col-xs-12.col-sm-12.col-md-8.col-lg-8
+                h1.mainTitle Dashboard
+                span.mainDescription Vendor Detail
+            ol.breadcrumb
+                li
+                    span Dashboard
+                li.active
+                    span Party Information
+    .container-fluid.container-fullw.bg-offwhite
+        form#form(v-on:submit.prevent='addContEntry')
+            .row
+                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                    .panel.panel-white.no-radius
+                        .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                            h4.panel-title.pull-left.padding-15 Vendor Detail
+                        .panel-body
+                            .row
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .form-group
+                                        .row
+                                            .col-xs-12.col-sm-12.col-md-4.col-lg-4
+                                                .text-center(v-if='dataLoad2')
+                                                    i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                                select.form-control(v-else='v-else', v-model='sel_party')
+                                                    option(value='') Select Party Information
+                                                    option(v-for='(row, key, ind) in partyData', v-bind:value='key') {{ row.contact_name }} | {{ row.agent_name }}
+                                            .col-xs-12.col-sm-12.col-md-4.col-lg-4.pull-right
+                                                router-link.btn.btn-primary.backtotop.btn-o.pull-right(to='/create_subsidiary')
+                                                    i.ti-angle-left
+                                                    |  Back to subsidiary
+                            form(v-on:submit.prevent='')
+                                .row(v-if='errMain !== "" || sucMain !== ""')
+                                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                        p.alert.alert-danger(v-if="errMain !== ''") {{ errMain }}
+                                        p.alert.alert-success(v-if="sucMain !== ''") {{ sucMain }}
+                                .row
+                                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                        h3.p_subheading Person Details
+                                .row
+                                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                        .form-group
+                                            label Contact Name
+                                            input.form-control(type='text', placeholder='Enter your Contact Name', v-model='contact_name')
+                                            p.text-danger.text-right(v-if='validation.hasError("contact_name")') {{ validation.firstError('contact_name') }}
+                                .row
+                                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                        .form-group
+                                            label Agent Code
+                                            .row
+                                                .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                    input.form-control(type='text', placeholder='Enter your Agent Code', v-model='agent_code')
+                                                    p.text-danger.text-right(v-if='validation.hasError("agent_code")') {{ validation.firstError('agent_code') }}
+                                                .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                    input.form-control(type='text', placeholder='Enter your Agent Name', v-model='agent_name')
+                                                    p.text-danger.text-right(v-if='validation.hasError("agent_name")') {{ validation.firstError('agent_name') }}
+                                .row
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label Category
+                                            .text-center(v-if='dataLoad1')
+                                                i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                            select.form-control(v-else='v-else', v-model='sel_category')
+                                                option(value='') Select Category
+                                                option(v-for='(row, key, ind) in pCatData', v-bind:value='key') {{ row.name }}
+                                            p.text-danger.text-right(v-if='validation.hasError("sel_category")') {{ validation.firstError('sel_category') }}
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label Group Code
+                                            input.form-control(type='text', placeholder='Enter your Group Code', v-model='group_code')
+                                            p.text-danger.text-right(v-if='validation.hasError("group_code")') {{ validation.firstError('group_code') }}
+                                .row
+                                    .col-xs-12.col-sm-6.col-md-12.col-lg-12
+                                        h3.p_subheading Contact Details
+                                .row
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label Phone Number
+                                            input.form-control(type='tel', placeholder='Enter your Phone number', v-model='phone_num')
+                                            p.text-danger.text-right(v-if='validation.hasError("phone_num")') {{ validation.firstError('phone_num') }}
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label fax Number
+                                            input.form-control(type='text', placeholder='Enter your Fax number', v-model='fax_num')
+                                            p.text-danger.text-right(v-if='validation.hasError("fax_num")') {{ validation.firstError('fax_num') }}
+                                .row
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label Email
+                                            input.form-control(type='email', placeholder='Enter your Email', v-model='email')
+                                            p.text-danger.text-right(v-if='validation.hasError("email")') {{ validation.firstError('email') }}
+                                            .text-right(v-if='validation.isValidating("email")')
+                                                i.fa.fa-spinner.fa-spin
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label Address
+                                            .row
+                                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                                    input.form-control(type='text', placeholder='Enter your Address', v-model='address')
+                                                    p.text-danger.text-right(v-if='validation.hasError("address")') {{ validation.firstError('address') }}
+                                .row
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        com_cities(ref='sel_city' v-bind:full_con="true")
+                                .row
+                                    .col-xs-12.col-sm-6.col-md-12.col-lg-12
+                                        h3.p_subheading Legal Information
+                                .row
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label NIC Number
+                                            input.form-control(type='text', placeholder='Enter your NIC Number', v-model='nic_num')
+                                            p.text-danger.text-right(v-if='validation.hasError("nic_num")') {{ validation.firstError('nic_num') }}
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label NTN Number
+                                            input.form-control(type='text', placeholder='Enter your NTN Number', v-model='ntn_num')
+                                            p.text-danger.text-right(v-if='validation.hasError("ntn_num")') {{ validation.firstError('ntn_num') }}
+                                .row
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label GST Number
+                                            input.form-control(type='text', placeholder='Enter your GST Number', v-model='gst_num')
+                                            p.text-danger.text-right(v-if='validation.hasError("gst_num")') {{ validation.firstError('gst_num') }}
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label CR Day
+                                            input.form-control(type='text', placeholder='Enter your CR Day', v-model='cr_day')
+                                            p.text-danger.text-right(v-if='validation.hasError("cr_day")') {{ validation.firstError('cr_day') }}
+                                .row
+                                    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                        .form-group
+                                            label CR Limit
+                                            input.form-control(type='text', placeholder='Enter your CR Limit', v-model='cr_limit')
+                                            p.text-danger.text-right(v-if='validation.hasError("cr_limit")') {{ validation.firstError('cr_limit') }}
+                                .row
+                                    .col-xs-12.col-sm-12.col-md-4.col-lg-4.pull-left
+                                        button.btn.btn-lg.btn-primary.btn-wide.pull-left(type='button', disabled='disabled', v-if='inProcess')
+                                            i.fa.fa-refresh.fa-spin.fa-fw
+                                        template(v-else='v-else')
+                                            button.btn.btn-lg.btn-primary.btn-wide.pull-left(v-if='updateP', type='button', v-on:click.prevent='updateParty')
+                                                | Update
+                                            button.btn.btn-lg.btn-primary.btn-wide.pull-left(v-else='v-else', type='button', v-on:click.prevent='createParty')
+                                                | Save

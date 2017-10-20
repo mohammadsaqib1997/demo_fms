@@ -1,0 +1,60 @@
+.modal.fade.modal-aside.horizontal.right.add-control(tabindex='-1' id="proj_sel_sub_control" role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+    .modal-dialog.modal-dialog.modal-sm
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4#myModalLabel.modal-title Add Sub Controls
+            .modal-body
+                form(v-on:submit.prevent='addRegSubCont')
+                    .form-group
+                        p.alert.alert-danger(v-if="errMain !== ''") {{ errMain }}
+                        p.alert.alert-success(v-if="sucMain !== ''") {{ sucMain }}
+                        .row.margin-bottom-10
+                            .col-md-12
+                                div.text-center(v-if='dataLoad1')
+                                    i.fa.fa-refresh.fa-spin.fa-1x.fa-fw
+                                template(v-else)
+                                    label Project Name
+                                    select.form-control(v-model='sel_project')
+                                        option(value='') Select Project
+                                        option(v-for='(row, key, ind) in projectData' v-bind:value='key') {{ row.name }}
+                                    p.text-danger.text-right(v-if='validation.hasError("sel_project")') {{ validation.firstError('sel_project') }}
+                        .row.margin-bottom-10
+                            .col-md-12
+                                div.text-center(v-if='dataLoad2')
+                                    i.fa.fa-refresh.fa-spin.fa-1x.fa-fw
+                                template(v-else)
+                                    label Control Name
+                                    select.form-control(v-model='sel_control')
+                                        option(value='') Select Control
+                                        option(v-for='(row, key, ind) in controlData' v-bind:value='key') {{ row.name }}
+                                    p.text-danger.text-right(v-if='validation.hasError("sel_control")') {{ validation.firstError('sel_control') }}
+                        .row.margin-bottom-10
+                            .col-md-12
+                                div.text-center(v-if='dataLoad3')
+                                    i.fa.fa-refresh.fa-spin.fa-1x.fa-fw
+                                template(v-else)
+                                    label Sub Control Name
+                                    select.form-control(v-model='sel_sub_control')
+                                        option(value='') Select Sub Control
+                                        option(v-for='(row, key, ind) in subControlData' v-bind:value='key') {{ row.name }}
+                                    p.text-danger.text-right(v-if='validation.hasError("sel_sub_control")') {{ validation.firstError('sel_sub_control') }}
+                                    .text-right(v-if='validation.isValidating("sel_sub_control")')
+                                        i.fa.fa-spinner.fa-spin
+                        .row.margin-bottom-10
+                            .col-md-12
+                                .form-group
+                                    label Debit
+                                    input.form-control(type='text', v-model='debit')
+                        .row.margin-bottom-10
+                            .col-md-12
+                                .form-group
+                                    label Credit
+                                    input.form-control(type='text', v-model='credit')
+                    button.btn.btn-primary(type='submit' v-if="!inProcess")
+                        | Add
+                    button.btn.btn-primary.btn-o.pull-right(type='button', data-dismiss='modal')
+                        | Cancel
+                    button.btn.btn-primary.mar-lf-10(type='button' disabled='disabled' v-if="inProcess")
+                        i.fa.fa-refresh.fa-spin.fa-fw

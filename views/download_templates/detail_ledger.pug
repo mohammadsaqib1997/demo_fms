@@ -1,0 +1,39 @@
+extends partials/header_table
+block content
+    table(style='width:100%;font-size: 14px;color: #545454 !important;font-weight: 400;border-spacing: 0;border-collapse: collapse;border: 0px;background: #ffffff;min-height: .01%;overflow-x: auto;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;', border='1', cellpadding='5')
+        tbody
+            tr(style='border: 0px;font-size: 14px;font-weight: 400;font-family: Helvetica, sans-serif;text-align: left;')
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Date
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Docment No.
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Reference No.
+                th(style='width:30%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;' colspan=2) Narration
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Debit
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Credit
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;') Balance
+                th(style='width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;background: #e2e8f0;border: none;padding: 8px;line-height: 1.42857143;')
+            tr(style='border: 0px;font-size: 14px;font-weight: 400;font-family: Helvetica, sans-serif;text-align: left;')
+                td(style='background: #e3e3e3;width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;border: none;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.code}
+                td(style='background: #e3e3e3;width:40%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;border: none;padding: 8px;line-height: 1.42857143;' colspan=3) #{fetchData.reqData.codeName}
+                td(style='background: #e3e3e3;width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;border: none;padding: 8px;line-height: 1.42857143;font-weight:bold;') Balance
+                td(style='background: #e3e3e3;width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;border: none;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.balance.balDr}
+                td(style='background: #e3e3e3;width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;border: none;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.balance.balCr}
+                td(style='background: #e3e3e3;width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;border: none;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.genBal = fetchData.reqData.balance.balDr - fetchData.reqData.balance.balCr}
+                td(style='background: #e3e3e3;width:10%;border-bottom: 1px solid #e2e2e4;color: #000 !important;border-top: none;vertical-align: middle;border: none;padding: 8px;line-height: 1.42857143;') #{(fetchData.reqData.genBal >= 0) ? "Dr" : "Cr"}
+            - var i = 0;
+            - var count = Object.keys(fetchData).length;
+            each item in fetchData.data
+                - i += 1;
+                tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;'+(((i%2) === 0) ? 'background-color: #f9f9f9;':'')+((count !== i) ? 'border-bottom: 1px solid #e2e2e4;':''))
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:40px;') #{item.date}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{(item.type).toUpperCase()}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{item.v_id}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:40%;' colspan=2) #{item.remarks}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{item.debit}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{item.credit}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{fetchData.reqData.genBal = (fetchData.reqData.genBal + item.debit) - item.credit}
+                    td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;width:10%;') #{(fetchData.reqData.genBal >= 0) ? "Dr" : "Cr"}
+            tr(style='font-size: 14px;font-family: Helvetica, sans-serif;font-weight: 400;border-color:#e2e2e4;font-weight:bold;')
+                td(style='vertical-align: middle;#e2e2e4;border: 0px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;' colspan='5')
+                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.extra.totDr}
+                td(style='vertical-align: middle;#e2e2e4;border: 1px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;') #{fetchData.reqData.extra.totCr}
+                td(style='vertical-align: middle;#e2e2e4;border: 0px solid #e2e2e4;color: #000 !important;padding: 8px;line-height: 1.42857143;' colspan='2')

@@ -1,0 +1,18 @@
+.row
+    .lock-screen
+        .box-ls
+            .text-center(v-if='loadImg')
+                i.fa.fa-refresh.fa-spin.fa-3x(style="color:white;")
+            img.img-rounded(v-else alt='FMS Profile' v-bind:src='pro_img_src' style='height:200px;')
+            .user-info
+                h4 {{ name }}
+                span {{ email }}
+                form(v-on:submit.prevent='unLock')
+                    .input-group
+                        input.form-control(type='password', placeholder='Password to unlock' v-model='password')
+                        i.fa.fa-lock
+                        span.input-group-btn
+                            button.btn.btn-primary(type='submit')
+                                i.fa.fa-chevron-right
+                    p.alert.alert-danger(v-if='validation.hasError("password")') {{ validation.firstError('password') }}
+                    p.alert.alert-danger(v-if='mainErr !== ""') {{ mainErr }}

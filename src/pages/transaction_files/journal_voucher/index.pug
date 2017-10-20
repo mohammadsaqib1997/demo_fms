@@ -1,0 +1,177 @@
+#container.wrap-content.container
+    section#page-title
+        .row
+            .col-xs-12.col-sm-12.col-md-8.col-lg-8
+                h1.mainTitle Transaction Files
+                span.mainDescription Journal Voucher
+            ol.breadcrumb
+                li
+                    span Transaction Files
+                li.active
+                    span Journal Voucher
+    .container-fluid.container-fullw.bg-offwhite
+        .row.voucher_details
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                .panel.panel-white.no-radius
+                    .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                        h4.panel-title.pull-left.padding-15 Journal Voucher
+                    .panel-body
+                        .row
+                            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                .form-group
+                                    .row
+                                        .col-xs-12.col-sm-12.col-md-4.col-lg-4
+                                            div.text-center(v-if='dataLoad2')
+                                                i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                            select.form-control(v-else v-model='sel_voucher')
+                                                option(value='') Select Voucher
+                                                option(v-for='(row, key, ind) in vouchersData' v-bind:value='key') {{ row.id }} | {{ row.v_remarks }}
+
+                        form(v-on:submit.prevent='')
+                            .row
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    h3.p_subheading Voucher Details
+                            .row
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12(v-if='errMain !== "" || sucMain !== ""')
+                                    p.alert.alert-danger(v-if="errMain !== ''") {{ errMain }}
+                                    p.alert.alert-success(v-if="sucMain !== ''") {{ sucMain }}
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .row
+                                        .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                            .form-group
+                                                label
+                                                    | Voucher ID
+                                                input.form-control(type='text' placeholder='Enter your Voucher ID' v-model='voucher_id')
+                                                p.text-danger.text-right(v-if='validation.hasError("voucher_id")') {{ validation.firstError('voucher_id') }}
+                                                .text-right(v-if='validation.isValidating("voucher_id")')
+                                                    i.fa.fa-spinner.fa-spin
+                                            .form-group
+                                                label
+                                                    | Remark
+                                                input.form-control(type='text' placeholder='Enter Remarks' v-model='v_remarks')
+                                                p.text-danger.text-right(v-if='validation.hasError("v_remarks")') {{ validation.firstError('v_remarks') }}
+                                            .form-group
+                                                label
+                                                    | Voucher Date
+                                                input.form-control.datepicker.voucher_date(type='text' placeholder='Enter your Voucher Date')
+                                                p.text-danger.text-right(v-if='validation.hasError("voucher_date")') {{ validation.firstError('voucher_date') }}
+                                        .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                            .form-group
+                                                label
+                                                    | Reference Type
+                                                .clip-radio.radio-primary
+                                                    input#mis(type='radio', value='mis', v-model='ref_type')
+                                                    label(for='mis')
+                                                        | Miscellaneous Expenses
+                                                    input#md(type='radio', value='md', v-model='ref_type')
+                                                    label(for='md')
+                                                        | Customer Detail
+                                                    input#pi(type='radio', value='pi', v-model='ref_type')
+                                                    label(for='pi')
+                                                        | Vendor Detail
+                                                    p.text-danger.text-right(v-if='validation.hasError("ref_type")') {{ validation.firstError('ref_type') }}
+                                            .form-group
+                                                label
+                                                    | Project
+                                                template(v-if="updateV")
+                                                    input.form-control(type='text', v-bind:value='proData[sel_project].name' disabled="disabled")
+                                                template(v-else)
+                                                    div.text-center(v-if='dataLoad1')
+                                                        i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                                    template(v-else)
+                                                        select.form-control(v-model='sel_project')
+                                                            option(value='') Select Project
+                                                            option(v-for='(row, key, ind) in proData' v-bind:value='key') {{ row.name }}
+                                                        p.text-danger.text-right(v-if='validation.hasError("sel_project")') {{ validation.firstError('sel_project') }}
+                                            .form-group(v-if="ref_type !== 'mis'")
+                                                label
+                                                    | {{ (ref_type === 'md')? "Customer Detail":"Vendor Detail" }}
+                                                div.text-center(v-if='dataLoad4')
+                                                    i.fa.fa-refresh.fa-spin.fa-fw.fa-2x
+                                                template(v-else)
+                                                    select.form-control(v-model='sel_ref')
+                                                        option(value='') Select {{ (ref_type === 'md')? "Customer Detail":"Vendor Detail" }}
+                                                        option(v-if="ref_type === 'md'" v-for='(row, key, ind) in masterDetailsData' v-bind:value='key') {{ row.allotee_code }} | {{ row.allotee_name }}
+                                                        option(v-if="ref_type === 'pi'" v-for='(row, key, ind) in partyInformationData' v-bind:value='key') {{ row.contact_name }} | {{ row.agent_name }}
+                                                    p.text-danger.text-right(v-if='validation.hasError("sel_ref")') {{ validation.firstError('sel_ref') }}
+                                            .form-group(v-if="ref_type === 'md'")
+                                                label Select Installment
+                                                select.form-control(v-model='sel_installment')
+                                                    option(value='') Select Installment
+                                                    option(v-for='num in gen_installments' v-bind:value='num') Installment {{ ("0"+num).slice(-2) }}
+                                                p.text-danger.text-right(v-if='validation.hasError("sel_installment")') {{ validation.firstError('sel_installment') }}
+                                                .text-right(v-if='validation.isValidating("sel_installment")')
+                                                    i.fa.fa-spinner.fa-spin
+                                            .form-group(v-if="userType === 'admin'")
+                                                label
+                                                    | Posted Y/N
+                                                .clip-radio.radio-primary
+                                                    input#p_yes(type='radio', value='Yes', v-model='posted_status')
+                                                    label(for='p_yes')
+                                                        | Yes
+                                                    input#p_no(type='radio', value='No', v-model='posted_status')
+                                                    label(for='p_no')
+                                                        | No
+                                                    p.text-danger.text-right(v-if='validation.hasError("posted_status")') {{ validation.firstError('posted_status') }}
+                                    .row
+                                        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                            h3.p_subheading Account Details
+                                    div.text-center(v-if='dataLoad3')
+                                        i.fa.fa-refresh.fa-spin.fa-fw.fa-3x
+                                    template(v-else)
+                                        .detail-Content.form-group(style="height: 210px;padding: 0 15px;")
+                                            .detail-heading
+                                                .row
+                                                    .col-xs-12.col-sm-1.col-md-1.col-lg-1.padding-right-0
+                                                        .padding-5 Code
+                                                    .col-xs-12.col-sm-2.col-md-2.col-lg-2
+                                                        .padding-5 Account Description
+                                                    .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                        .padding-5 Remark
+                                                    .col-xs-12.col-sm-1.col-md-1.col-lg-1
+                                                        .padding-5 Quantity
+                                                    .col-xs-12.col-sm-2.col-md-2.col-lg-2
+                                                        .padding-5 Debit
+                                                    .col-xs-12.col-sm-2.col-md-2.col-lg-2.padding-left-0
+                                                        .padding-5 Credit
+                                            .detail-table
+                                                template(v-for='row, ind in rows')
+                                                    .row(v-bind:class='"row-"+ind')
+                                                        .col-xs-12.col-sm-1.col-md-1.col-lg-1.padding-right-0
+                                                            get-codes(v-bind:project='sel_project' v-bind:code='row.code' v-on:name_change="changeCode($event, ind)" v-on:list_subs_pro_id="getList(ind)")
+                                                        .col-xs-12.col-sm-2.col-md-2.col-lg-2.padding-none
+                                                            get-subs-name(v-bind:project='sel_project' v-bind:name='row.code_name' v-on:name_change="changeSubName($event, ind)" v-on:list_subs_pro_id="getList(ind)")
+                                                        .col-xs-12.col-sm-4.col-md-4.col-lg-4.padding-none
+                                                            input.form-control(type='text' v-model='row.remarks' v-on:keydown="copyRemarks(ind, $event)")
+                                                        .col-xs-12.col-sm-1.col-md-1.col-lg-1.padding-none
+                                                            input.form-control(type='text' v-model='row.quantity')
+                                                        .col-xs-12.col-sm-2.col-md-2.col-lg-2.padding-none
+                                                            input.form-control(type='text' v-model='row.debit')
+                                                        .col-xs-12.col-sm-2.col-md-2.col-lg-2.padding-left-0
+                                                            input.form-control(type='text' v-model='row.credit')
+                                            .row.Total
+                                                .col-xs-12.col-sm-2.col-md-2.col-lg-2.padding-right-0
+                                                    p.margin-bottom-0.text-center(style='line-height: 48px;font-size: 14px;color: #545454;')
+                                                        | JV Difference
+                                                        | < Debit / Credit >
+                                                .col-xs-12.col-sm-2.col-md-2.col-lg-2.padding-none
+                                                    input.form-control(type='text' disabled='disabled' v-bind:value='total_debit - total_credit')
+                                                .col-xs-12.col-sm-2.col-md-2.col-lg-2.padding-none
+                                                .col-xs-12.col-sm-2.col-md-2.col-lg-2.padding-none
+                                                    h3.margin-bottom-0(style='line-height: 48px;text-transform: uppercase;font-size: 14px;text-align: right;padding-right: 20px;font-weight: 600;') Total
+                                                .col-xs-12.col-sm-2.col-md-2.col-lg-2.padding-none
+                                                    input.form-control(type='text' v-bind:value='total_debit' disabled='disabled')
+                                                .col-xs-12.col-sm-2.col-md-2.col-lg-2.padding-left-0
+                                                    input.form-control(type='text' v-bind:value='total_credit' disabled='disabled')
+                            .row
+                                .col-xs-12.col-sm-4.col-md-4.col-lg-4.pull-left
+                                    button.btn.btn-primary.btn-wide.pull-left(v-if="inProcess" type='button' disabled='disabled')
+                                        i.fa.fa-refresh.fa-spin.fa-fw
+                                    template(v-else)
+                                        template(v-if='updateV')
+                                            button.btn.btn-lg.btn-primary.btn-wide.pull-left(v-if='updateStatus' type='button' v-on:click.prevent='updateVoucher')
+                                                | Update
+                                        button.btn.btn-lg.btn-primary.btn-wide.pull-left(v-else type='button' v-on:click.prevent='addVoucher')
+                                            | Submit
+
+    proSubsListModel(v-bind:pro_key="sel_project" v-on:get_subs_item="setSelCode")

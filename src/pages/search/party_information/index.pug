@@ -1,0 +1,166 @@
+#container.wrap-content.container
+    section#page-title
+        .row
+            .col-xs-12.col-sm-12.col-md-8.col-lg-8
+                h1.mainTitle Search
+                span.mainDescription Vendor Detail
+            ol.breadcrumb
+                li
+                    span Search
+                li.active
+                    span Vendor Detail
+    .container-fluid.container-fullw.bg-offwhite
+        .row.voucher_details
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                .panel.panel-white.no-radius
+                    .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                        h4.panel-title.pull-left.padding-15 Vendor Detail
+                    .panel-body
+                        div.text-center(v-if='dataLoad1')
+                            i.fa.fa-refresh.fa-spin.fa-fw.fa-3x
+                        template(v-if="!dataLoad1 && piData === null")
+                            h3.text-center No Data Found
+                        template(v-if="!dataLoad1 && piData !== null")
+                            .row
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .form-group
+                                        form(v-on:submit.prevent='')
+                                            .row
+                                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                                    h3.p_subheading Person Details
+                                            .row
+                                                .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | Contact Name
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.contact_name }}
+                                                .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | Agent Code
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.agent_code }}
+                                            .row
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | Category
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.sel_category }}
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | Agent Name
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.agent_name }}
+                                            .row
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | Group Code
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.group_code }}
+                                            .row
+                                                .col-xs-12.col-sm-6.col-md-12.col-lg-12
+                                                    h3.p_subheading Contact Details
+                                            .row
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | Phone Number
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.phone_num }}
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | Fax Number
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.fax_num }}
+                                            .row
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | Email
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.email }}
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | Address
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.address }}
+                                            .row
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | City
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.city }}
+                                            .row
+                                                .col-xs-12.col-sm-6.col-md-12.col-lg-12
+                                                    h3.p_subheading Legal Information
+                                            .row
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .form-group
+                                                            .row
+                                                                .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                    label
+                                                                        | NIC Number
+                                                                .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                    p  {{ piData.nic_num }}
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | NTN Number
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.ntn_num }}
+                                            .row
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | GST Number
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.gst_num }}
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | CR Day
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.cr_day }}
+                                            .row
+                                                .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                                                    .form-group
+                                                        .row
+                                                            .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                                                                label
+                                                                    | CR Limit
+                                                            .col-xs-12.col-sm-8.col-md-8.col-lg-8
+                                                                p  {{ piData.cr_limit }}

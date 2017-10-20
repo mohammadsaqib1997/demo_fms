@@ -1,0 +1,64 @@
+.panel.panel-white.no-radius
+    .panel-body.no-padding
+        #full-calendar
+    .panel-footer.padding-10.partition-white
+        .list-inline
+            li
+                i.circle-20(style="background: #f5b620; float: left; margin-right: 5px;")
+                h5(style="float: left;line-height: 22px;margin-bottom: 0px;text-transform: uppercase;color: #b3b3b3;font-size: 12px;") Meeting
+            li
+                i.circle-20(style="background: #a6c367; float: left; margin-right: 5px;")
+                h5(style="float: left;line-height: 22px;margin-bottom: 0px;text-transform: uppercase;color: #b3b3b3;font-size: 12px;") Reminder
+            li(style="float: left; margin-right: 5px;")
+                i.circle-20(style="background: #e8534f; float: left; margin-right: 5px;")
+                h5(style="float: left;line-height: 22px;margin-bottom: 0px;text-transform: uppercase;color: #b3b3b3;font-size: 12px;") Event
+
+    #addEvent.modal.fade.modal-aside.center(tabindex='-1', role='dialog', aria-labelledby='Add Event', aria-hidden='true')
+        .modal-dialog.modal-dialog.modal-md
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                    h4.modal-title Add Event
+                .modal-body
+                    .commonTable
+                        .row.form-group(v-if='errMsg !== ""')
+                            .col-md-12
+                                p.alert.alert-danger {{ errMsg }}
+                        .row.form-group
+                            .col-md-12
+                                input.form-control(type='text', title='Title', placeholder='Title' v-model='title')
+                                p.alert.alert-danger(v-if='validation.hasError("title")') {{ validation.firstError('title') }}
+                        .row.form-group
+                            .col-md-12
+                                input.form-control#sel_start_time(type='text', title='Start Date/Time', placeholder='Start Date/Time')
+                                p.alert.alert-danger(v-if='validation.hasError("start_time")') {{ validation.firstError('start_time') }}
+                        .row.form-group
+                            .col-md-12
+                                input.form-control#sel_end_time(type='text', title='End Date/Time', placeholder='End Date/Time')
+                                p.alert.alert-danger(v-if='validation.hasError("end_time")') {{ validation.firstError('end_time') }}
+                        .row.form-group
+                            .col-md-12.text-left
+                                label
+                                    | Badge Select
+                                .clip-radio.radio-primary
+                                    input#badge1(type='radio', value='Meeting', v-model='badge_type')
+                                    label(for='badge1')
+                                        | Meeting
+                                    input#badge2(type='radio', value='Reminder', v-model='badge_type')
+                                    label(for='badge2')
+                                        | Reminder
+                                    input#badge3(type='radio', value='Event', v-model='badge_type')
+                                    label(for='badge3')
+                                        | Event
+                                    p.text-danger.text-right(v-if='validation.hasError("badge_type")') {{ validation.firstError('badge_type') }}
+                        .row.form-group
+                            .col-md-6
+                                .calculatorButton.pull-left
+                                    template(v-if='!inProcess')
+                                        button.btn.btn-red.btn-md.text-uppercase(v-if='editId === null' v-on:click.prevent='addEvent') Add
+                                        template(v-else)
+                                            button.btn.btn-red.btn-md.text-uppercase(v-on:click.prevent='editEvent') Edit
+                                            button.btn.btn-red.btn-md.text-uppercase(v-on:click.prevent='removeEvent') Remove
+                                    button.btn.btn-red.btn-md.text-center(v-else)
+                                        i.fa.fa-refresh.fa-spin

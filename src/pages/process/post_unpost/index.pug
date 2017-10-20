@@ -1,0 +1,64 @@
+#container.wrap-content.container
+    section#page-title
+        .row
+            .col-xs-12.col-sm-12.col-md-8.col-lg-8
+                h1.mainTitle Process
+                span.mainDescription Post/Un Post
+            ol.breadcrumb
+                li
+                    span Process
+                li.active
+                    span Post/Un Post
+    .container-fluid.container-fullw.bg-offwhite
+        .row
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                .panel.panel-white.no-radius
+                    .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                        h4.panel-title.pull-left.padding-15 Post/Un Post
+                    .panel-body
+                        div.text-center(v-if='dataLoad1')
+                            i.fa.fa-refresh.fa-spin.fa-fw.fa-3x
+                        template(v-else)
+                            .row
+                                .col-lg-3.col-md-offset-9
+                                    .form-group
+                                        input.form-control(placeholder='Search...' v-model='search_txt')
+                            template(v-if="Object.keys(pagData).length > 0")
+                                .table-responsive
+                                    table.table.table-striped.table-hover
+                                        thead
+                                            tr
+                                                th Voucher ID
+                                                th Voucher Type
+                                                th Reference
+                                                th Project
+                                                th Voucher Date
+                                                th Post/Unpost
+                                        tbody
+                                            tr(v-for='(row, key, ind) in pagData')
+                                                td {{ row.id }}
+                                                td {{ row.gen_type }}
+                                                td {{ row.ref_gen }}
+                                                td {{ row.project }}
+                                                td {{ row.gen_date }}
+                                                td.icon-container
+                                                    button.btn.btn-danger(v-if='row.posted_status === "Yes"' v-on:click="deactive(key)") UnPost
+                                                    button.btn.btn-success(v-else v-on:click="active(key)") Post
+                                .row
+                                    .col-lg-3.col-md-offset-9.text-right
+                                        label Page: {{curPage}}/{{ totPages }}
+                                        .btn-group
+                                            button.btn.btn-sm(v-if='curPage>1' v-on:click='prevPage')
+                                                i.fa.fa-chevron-left
+                                            button.btn.btn-sm(v-else disabled='disabled')
+                                                i.fa.fa-chevron-left
+                                            button.btn.btn-sm(v-if='curPage<totPages' v-on:click='nextPage')
+                                                i.fa.fa-chevron-right
+                                            button.btn.btn-sm(v-else disabled='disabled')
+                                                i.fa.fa-chevron-right
+                            template(v-else)
+                                .row
+                                    .col-lg-12
+                                        h3.text-center No Data Found!
+
+

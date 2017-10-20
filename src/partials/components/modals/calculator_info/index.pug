@@ -1,0 +1,101 @@
+#calculatorview.modal.fade.modal-aside.center(tabindex='-1', role='dialog', aria-labelledby='View Calculator', aria-hidden='true')
+    .modal-dialog.modal-dialog.modal-md
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4#myModalLabel.modal-title View Calculator
+            .modal-body
+                .row.margin-none(v-if='load1')
+                    .col-md-12.text-center
+                        i.fa.fa-refresh.fa-spin.fa-3x
+                template(v-else)
+                    template(v-if='loadData !== null')
+                        .row.text-left
+                            .col-md-12(v-if='loadData.type === "sc"')
+                                .form-group
+                                    h3 Simple Calculator
+                                .form-group
+                                    .row
+                                        .col-md-6
+                                            h4 Formula:
+                                        .col-md-6
+                                            h4 {{ loadData.data.formula }}
+                                .form-group(v-if='loadData.data.a')
+                                    .row
+                                        .col-md-6
+                                            h4 Total P+I (A): Rs:
+                                        .col-md-6
+                                            h4 {{ loadData.data.a }}
+                                .form-group(v-if='loadData.data.p')
+                                    .row
+                                        .col-md-6
+                                            h4 Principal (P): Rs:
+                                        .col-md-6
+                                            h4 {{ loadData.data.p }}
+                                .form-group(v-if='loadData.data.r')
+                                    .row
+                                        .col-md-6
+                                            h4 Rate (R): % per year:
+                                        .col-md-6
+                                            h4 {{ loadData.data.r }}
+                                .form-group(v-if='loadData.data.t')
+                                    .row
+                                        .col-md-6
+                                            h4 Time:
+                                        .col-md-6
+                                            h4 {{ loadData.data.t }}
+                                .form-group(v-if='loadData.data.t_unit')
+                                    .row
+                                        .col-md-6
+                                            h4 Time Unit:
+                                        .col-md-6
+                                            h4 {{ loadData.data.t_unit }}
+                                hr
+                                .form-group
+                                    .row
+                                        .col-md-6
+                                            h4 Result:
+                                        .col-md-6
+                                            h4 {{ loadData.result }}
+                            .col-md-12(v-if='loadData.type === "cc"')
+                                .form-group
+                                    h3 Compound Calculator
+                                .form-group
+                                    .row
+                                        .col-md-6
+                                            h4 Initial Investment:
+                                        .col-md-6
+                                            h4 {{ loadData.data.init_invest }}
+                                .form-group
+                                    .row
+                                        .col-md-6
+                                            h4 Monthly Addition:
+                                        .col-md-6
+                                            h4 {{ loadData.data.monthly_add }}
+                                .form-group
+                                    .row
+                                        .col-md-6
+                                            h4 Interest Rate %:
+                                        .col-md-6
+                                            h4 {{ loadData.data.interest_rate }}
+                                .form-group
+                                    .row
+                                        .col-md-6
+                                            h4 Number of Years:
+                                        .col-md-6
+                                            h4 {{ loadData.data.payments_time }}
+                                hr
+                                .form-group
+                                    .row
+                                        .col-md-6
+                                            h4 Future Value:
+                                        .col-md-6
+                                            h4 {{ loadData.result.fv }}
+                                .form-group
+                                    .row
+                                        .col-md-6
+                                            h4 Interest Earned:
+                                        .col-md-6
+                                            h4 {{ loadData.result.totInt }}
+

@@ -1,0 +1,26 @@
+div
+    .interestform.form-container
+        .commonTable
+            .row.form-group
+                .col-md-12
+                    input.form-control(v-model='init_invest' type='text', title='Initial Investment', placeholder='Initial Investment')
+                    p.alert.alert-danger(v-if='validation.hasError("init_invest")') {{ validation.firstError('init_invest') }}
+            .row.form-group
+                .col-md-12
+                    input.form-control(v-model='monthly_add', type='text', title='Monthly Addition', placeholder='Monthly Addition')
+                    p.alert.alert-danger(v-if='validation.hasError("monthly_add")') {{ validation.firstError('monthly_add') }}
+            .row.form-group
+                .col-md-12
+                    input.form-control(v-model='interest_rate', type='text', title='Interest Rate %', placeholder='Interest Rate %')
+                    p.alert.alert-danger(v-if='validation.hasError("interest_rate")') {{ validation.firstError('interest_rate') }}
+            .row.form-group
+                .col-md-12
+                    input.form-control(v-model='payments_time', type='text', title='Number of Years', placeholder='Number of Years')
+                    p.alert.alert-danger(v-if='validation.hasError("payments_time")') {{ validation.firstError('payments_time') }}
+            .row.form-group
+                .col-md-6.pull-right
+                    .calculatorButton.pull-right
+                        button.btn.btn-red.btn-md.text-uppercase(v-on:click.prevent='calculate') Calculate
+                .col-md-6.pull-left
+                    .calculatorButton.pull-left
+                        button.btn.btn-red.btn-o.btn-md.text-uppercase(v-on:click.prevent='resetFields') Clear

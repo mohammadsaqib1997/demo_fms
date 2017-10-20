@@ -1,0 +1,46 @@
+.bg-offwhite
+    #container.wrap-content.container-fluid
+        section#page-title
+            .row
+                .col-md-2.border-right(style='border-color: #aeaeae;')
+                    img(src='/assets/images/logo.png', class="logo-image", style='width: 100%;max-width:230px;')
+                .col-sm-8
+                    .col-sm-8
+                        h1.mainTitle(style='font-size: 38.02px;') {{ optionalData.title }}
+                        span.mainDescription(style='font-size: 19px;color: #ec5d58;') {{ optionalData.subTitle }}
+    .row.padding-30
+        .col-md-12
+            .text-center(v-if='dataLoad1')
+                i.fa.fa-refresh.fa-spin.fa-3x
+            .panel.panel-white.no-radius(v-else)
+                .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                    h4.panel-title.pull-left.padding-15 Project Name: {{ optionalData.proName }}
+                    h6.pull-right.text-right.padding-15 Create Date: {{ optionalData.date }}
+                    h6.pull-right.text-right.padding-15 Period: {{optionalData.period}}
+                .panel-body.padding-30
+                    table.table.table-striped.table-responsive.misreport(cellpadding='5' style='width:100%;' border=1)
+                        tbody
+                            tr.background-e2e8f0.no-border
+                                th(style='width:10%;') Code
+                                th(style='width:70%;') Head Of Account
+                                th(style='width:10%;') Debit
+                                th(style='width:10%;') Credit
+
+                            template(v-for='item in fetchData.data')
+                                tr
+                                    td {{item.id}}
+                                    td {{item.name}}
+                                    td {{item.totDr}}
+                                    td {{item.totCr}}
+                            tr(style="font-weight:bold;")
+                                td(colspan=2 style="text-align:right;") Grand Total (Rs.)
+                                td {{fetchData.reqData.grTotDr}}
+                                td {{fetchData.reqData.grTotCr}}
+                            tr(style="font-weight:bold;")
+                                td(colspan=2 style="text-align:right;") Difference
+                                td {{((fetchData.reqData.grTotDr - fetchData.reqData.grTotCr) > -1) ? fetchData.reqData.grTotDr - fetchData.reqData.grTotCr : ''}}
+                                td {{((fetchData.reqData.grTotDr - fetchData.reqData.grTotCr) < 0) ? fetchData.reqData.grTotDr - fetchData.reqData.grTotCr : ''}}
+                    button.btn.btn-danger.btn-lg.btn-dark-Red.text-uppercase(type='button' style="margin-right:20px;" data-toggle="modal" data-target="#download-pdf") Save
+                    button.btn.btn-dark-black.btn-lg.text-uppercase(type='button' onclick="window.print();") Print
+
+    downloadSheetModel(v-bind:fetchData='fetchData' v-bind:optionalData='optionalData' v-bind:dLinks='dLinks')

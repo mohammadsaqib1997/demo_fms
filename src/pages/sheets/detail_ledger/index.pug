@@ -1,0 +1,58 @@
+.bg-offwhite
+    #container.wrap-content.container-fluid
+        section#page-title
+            .row
+                .col-md-2.border-right(style='border-color: #aeaeae;')
+                    img(src='/assets/images/logo.png', class="logo-image", style='width: 100%;max-width:230px;')
+                .col-sm-8
+                    .col-sm-8
+                        h1.mainTitle(style='font-size: 38.02px;') {{ optionalData.title }}
+                        span.mainDescription(style='font-size: 19px;color: #ec5d58;') {{ optionalData.subTitle }}
+    .row.padding-30
+        .col-md-12
+            .text-center(v-if='dataLoad1')
+                i.fa.fa-refresh.fa-spin.fa-3x
+            .panel.panel-white.no-radius(v-else)
+                .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
+                    h4.panel-title.pull-left.padding-15 Project Name: {{ optionalData.proName }}
+                    h6.pull-right.text-right.padding-15 Create Date: {{ optionalData.date }}
+                    h6.pull-right.text-right.padding-15 Period: {{optionalData.period}}
+                .panel-body.padding-30
+                    table.table.table-striped.table-responsive.misreport(cellpadding='5' style='width:100%;' border=1)
+                        tbody
+                            tr.background-e2e8f0.no-border
+                                th.col-md-1 Date
+                                th.col-md-1 Docment No.
+                                th.col-md-1 Reference No.
+                                th.col-md-5(colspan=2) Narration
+                                th.col-md-1 Debit
+                                th.col-md-1 Credit
+                                th.col-md-1 Balance
+                                th.col-md-1
+                            tr.background-e3e3e3
+                                td.col-md-1 {{fetchData.reqData.code}}
+                                td.col-md-5(colspan=3) {{fetchData.reqData.codeName}}
+                                td.col-md-1.text-bold Balance
+                                td.col-md-1 {{fetchData.reqData.balance.balDr}}
+                                td.col-md-1 {{fetchData.reqData.balance.balCr}}
+                                td.col-md-1 {{fetchData.reqData.genBal = fetchData.reqData.balance.balDr - fetchData.reqData.balance.balCr}}
+                                td.col-md-1 {{(fetchData.reqData.genBal >= 0) ? "Dr" : "Cr"}}
+                            tr(v-for='item in fetchData.data')
+                                td.col-md-1(style="width:40px;") {{item.date}}
+                                td.col-md-1 {{(item.type).toUpperCase()}}
+                                td.col-md-1 {{item.v_id}}
+                                td.col-md-4(colspan=2) {{item.remarks}}
+                                td.col-md-1 {{item.debit}}
+                                td.col-md-1 {{item.credit}}
+                                td.col-md-1 {{fetchData.reqData.genBal = (fetchData.reqData.genBal + item.debit) - item.credit}}
+                                td.col-md-1 {{(fetchData.reqData.genBal >= 0) ? "Dr" : "Cr"}}
+                            tr.no-border
+                                td(colspan=5)
+                                td.background-e6e6e6 {{fetchData.reqData.extra.totDr}}
+                                td.background-e6e6e6 {{fetchData.reqData.extra.totCr}}
+                                td(colspan=2)
+
+                    button.btn.btn-danger.btn-lg.btn-dark-Red.text-uppercase(type='button' style="margin-right:20px;" data-toggle="modal" data-target="#download-pdf") Save
+                    button.btn.btn-dark-black.btn-lg.text-uppercase(type='button' onclick="window.print();") Print
+
+    downloadSheetModel(v-bind:fetchData='fetchData' v-bind:optionalData='optionalData' v-bind:dLinks='dLinks')
