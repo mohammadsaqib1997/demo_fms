@@ -4,13 +4,7 @@
             input.form-control(
                 type='text'
                 placeholder='Search...'
-                autocomplete='off'
-                v-model='query'
-                v-on:keydown.down='down'
-                v-on:keydown.up='up'
-                v-on:keydown.enter='hit'
-                v-on:keydown.esc='reset'
-                )
+                autocomplete='off')
             button.btn.search-button(type='submit')
                 i.ti-search
             ul(v-if='items && items.length > 0')
