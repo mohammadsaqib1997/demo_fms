@@ -16,16 +16,16 @@
                     .panel-heading.border-bottom.border-left.border-yellow.no-padding.no-line-height.no-min-height
                         h4.panel-title.pull-left.padding-15 Post/Un Post
                     .panel-body
+                        .row
+                            .col-lg-3.col-md-offset-9
+                                .form-group
+                                    input.form-control(placeholder='Search...' v-model='search_txt')
                         div.text-center(v-if='dataLoad1')
                             i.fa.fa-refresh.fa-spin.fa-fw.fa-3x
                         template(v-else)
-                            .row
-                                .col-lg-3.col-md-offset-9
-                                    .form-group
-                                        input.form-control(placeholder='Search...' v-model='search_txt')
                             template(v-if="Object.keys(pagData).length > 0")
                                 .table-responsive
-                                    table.table.table-striped.table-hover
+                                    table#search_table.table.table-striped.table-hover
                                         thead
                                             tr
                                                 th Voucher ID

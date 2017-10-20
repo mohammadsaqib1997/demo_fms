@@ -102,4 +102,26 @@ module.exports  = {
                 return elm === arr2[ind];
             });
     },
+    tableSearch: function(el_table, search_val){
+        let table = $(el_table);
+        let body = table.find('tbody');
+        let rows = body.find('tr');
+        if(search_val !== ""){
+            rows.addClass('hidden');
+        }else{
+            rows.removeClass('hidden');
+        }
+        rows.each(function () {
+            let tr = $(this);
+            let columns = tr.find('td');
+            columns.each(function () {
+                let td = $(this);
+                let txt = td.text().toLowerCase();
+                search_val = search_val.toLowerCase();
+                if(txt.indexOf(search_val) > -1){
+                    td.parent().removeClass('hidden');
+                }
+            });
+        });
+    }
 };

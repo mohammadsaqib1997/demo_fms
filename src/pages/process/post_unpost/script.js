@@ -35,8 +35,8 @@ export default {
                                     process_item++;
                                     if(process_item === snap.numChildren()){
                                         self.vouchersData = func.sortObj(self.vouchersData, false);
-                                        self.orgData = self.vouchersData;
                                         self.loadMasterDetails(self, function () {
+                                            self.orgData = self.vouchersData;
                                             self.dataLoad1 = false;
                                         });
                                     }
@@ -50,8 +50,8 @@ export default {
                                     process_item++;
                                     if(process_item === snap.numChildren()){
                                         self.vouchersData = func.sortObj(self.vouchersData, false);
-                                        self.orgData = self.vouchersData;
                                         self.loadMasterDetails(self, function () {
+                                            self.orgData = self.vouchersData;
                                             self.dataLoad1 = false;
                                         });
                                     }
@@ -61,8 +61,8 @@ export default {
                                 process_item++;
                                 if(process_item === snap.numChildren()){
                                     self.vouchersData = func.sortObj(self.vouchersData, false);
-                                    self.orgData = self.vouchersData;
                                     self.loadMasterDetails(self, function () {
+                                        self.orgData = self.vouchersData;
                                         self.dataLoad1 = false;
                                     });
                                 }
@@ -72,8 +72,8 @@ export default {
                             process_item++;
                             if(process_item === snap.numChildren()){
                                 self.vouchersData = func.sortObj(self.vouchersData, false);
-                                self.orgData = self.vouchersData;
                                 self.loadMasterDetails(self, function () {
+                                    self.orgData = self.vouchersData;
                                     self.dataLoad1 = false;
                                 });
                             }
@@ -82,6 +82,7 @@ export default {
                 });
             } else {
                 self.loadMasterDetails(self, function () {
+                    self.orgData = self.vouchersData;
                     self.dataLoad1 = false;
                 });
             }
@@ -208,8 +209,8 @@ export default {
             });
         },
         search_values: function (self, val) {
-            let saveData = self.orgData;
             if(val !== ""){
+                let saveData = self.orgData;
                 let gen_search_data = {};
                 let searchKeys = Object.keys(saveData);
                 for(let i=0; i < searchKeys.length; i++){
